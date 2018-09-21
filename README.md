@@ -9,8 +9,7 @@ Main Description
 * List Features Here
 
 ## Features Not Implemented
-* missle defence
-* rendering
+* List Features Here
 
 ## Authors
 
