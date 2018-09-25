@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta name="description" content="">
@@ -23,70 +22,52 @@
 	<!-- Custom styles for this template -->
 	<!-- <link href="css/freelancer.min.css" rel="stylesheet"> -->
 	<link href="css/override.css" rel="stylesheet">
-
+	<link href="css/index.css" rel="stylesheet">
 </head>
-<nav class="navbar navbar-light bg-light">
-	<h2>Application</h2>
-	<div class="dropdown">
-		<button class="btn btn-secondary dropdown-toggle" style="min-width: 12em;" type="button" id="dropdownMenu1" data-toggle="dropdown"
-		 aria-haspopup="true" aria-expanded="false">
-			Video Game Select
-		</button>
-		<div class="dropdown-menu dropdown-game-menu" style="min-width: 12em;" aria-labelledby="dropdownMenu1">
-			<a class="dropdown-item" href="#!">Fortnite</a>
-			<a class="dropdown-item" href="#!">Destiny</a>
-			<a class="dropdown-item" href="#!">Fucking Salt</a>
-		</div>
-	</div>
-	<button type="button" class="btn btn-primary" style="min-width: 12em;" onclick="matchFound();">Search</button>
-	<button type="button" class="btn btn-danger" style="min-width: 12em;" onclick="resetMatches();">Cancel</button>
-	<!-- <img class="rounded-circle" style="height: 64px;" src="img/profiles/MaleOne.png" alt="Circle image"> -->
-	<div class="dropdown">
-		<button class="btn dropdown-toggle"type="button" id="dropdownMenu1" data-toggle="dropdown"
-		 aria-haspopup="true" aria-expanded="false">
-		 	<img class="rounded-circle" style="height: 64px;" src="img/profiles/MaleOne.png" alt="Circle image">
-		</button>
-		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-			<a class="dropdown-item" href="#!">Profile</a>
-			<a class="dropdown-item" href="#!">Settings</a>
-			<a class="dropdown-item" href="#!">Logout</a>
-		</div>
-	</div>
-
-</nav>
 
 <body>
-	<div id="User" class="split One">
-		<div class="centered">
-			<img src="img/profiles/MaleOne.png" alt="Avatar woman">
-			<h2>User</h2>
-			<p>Some text.</p>
+	<nav class="navbar navbar-light bg-light">
+		<h3 class="masthead-brand">LFG</h3>
+		<nav>
+			<ul class="nav masthead-nav">
+				<li class="active"><a href="#">Home</a></li>
+				<li><a href="pages/login.html">Login</a></li>
+				<li><a href="#">Contact</a></li>
+			</ul>
+		</nav>
 		</div>
+	</nav>
+	<div class="site-wrapper">
+		<div class="site-wrapper-inner">
+			<div class="container">
+				<div class="inner cover">
+					<h1 class="cover-heading">Skilled LFG</h1>
+					<p class="lead">Our service ensures that mark sucks and will never get year 2 destiny exsoticts,
+						sign up today and start matching with equally shitty marks</p>
+					<p class="lead">
+						<!-- <form>
+							<input class="form-control" type="text" name="firstname">
+							<div class="input-group-append">
+								<input type="submit" class="btn btn-primary mb-2" value="Submit">
+							</div>
+						</form> -->
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Email" aria-label="" aria-describedby="basic-addon1">
+							<div class="input-group-append">
+								<a href="pages/signUp.html">
+									<button class="btn btn-success" type="button">Sign Up!</button>
+								</a>
+							</div>
+						</div>
+					</p>
+				</div>
+
+			</div>
+
+		</div>
+
 	</div>
 
-	<div id="MatchOne" class="split Two">
-		<div class="centered">
-			<img src="img/profiles/FemaleOne.png" alt="Avatar man">
-			<h2>Match One</h2>
-			<p>Some text here too.</p>
-		</div>
-	</div>
-
-	<div id="MatchTwo" class="split Three">
-		<div class="centered">
-			<img src="img/profiles/MaleTwo.png" alt="Avatar man">
-			<h2>Match Two</h2>
-			<p>Some text here too.</p>
-		</div>
-	</div>
-
-	<div id="MatchThree" class="split Four">
-		<div class="centered">
-			<img src="img/profiles/FemaleTwo.png" alt="Avatar man">
-			<h2>Match Three</h2>
-			<p>Some text here too.</p>
-		</div>
-	</div>
 	<!-- Bootstrap core JavaScript -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -100,7 +81,6 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="js/override.js"></script>
-
 </body>
 
 </html>
