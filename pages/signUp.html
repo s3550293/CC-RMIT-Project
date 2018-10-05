@@ -27,11 +27,12 @@
 
 <body>
     <nav class="navbar navbar-light bg-light">
-        <h3 class="masthead-brand">SquadUp</h3>
+        <h3 class="masthead-brand">LFG</h3>
         <nav>
             <ul class="nav masthead-nav">
                 <li><a href="../index.html">Home</a></li>
-                <li class="active"><a href="login.html">Login</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="#">Contact</a></li>
             </ul>
         </nav>
         </div>
@@ -40,18 +41,36 @@
         <div class="site-wrapper-inner">
             <div class="container">
                 <div class="inner cover center-block container" style="width: 40em;">
-                    <h1 class="cover-heading">Login</h1>
+                    <h1 class="cover-heading">Signup</h1>
                     <form>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Screen Name</label>
+                            <div class="col-sm-8">
+                                <input type="email" class="form-control" id="inputScreenName" placeholder="Name">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Date Of Birth</label>
+                            <div class="col-sm-8">
+                                    <input class="form-control" type="date">
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-4 col-form-label">Email</label>
                             <div class="col-sm-8">
-                                <input type="email" class="form-control" id="inputEmailLogin" placeholder="Email">
+                                <input type="email" class="form-control" id="inputEmailSignup" placeholder="Email">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="inputEmail3" class="col-sm-4 col-form-label">Password</label>
                             <div class="col-sm-8">
-                                <input type="password" class="form-control" id="inputPassword" placeholder="password">
+                                <input type="password" class="form-control" id="inputPasswordSingUp" placeholder="password">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputEmail3" class="col-sm-4 col-form-label">Confrim Password</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="inputConfrimPassword" placeholder="confrim password">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -83,6 +102,8 @@
 
     <!-- Custom scripts for this template -->
     <script src="../js/override.js"></script>
+
+    
 </body>
 
 </html>

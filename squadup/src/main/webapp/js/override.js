@@ -44,8 +44,8 @@ $(function(){
   
     $(".dropdown-game-menu a").click(function(){
       
-      $(".btn:first-child").text($(this).text());
-       $(".btn:first-child").val($(this).text());
+      $(".btnGame:first-child").text($(this).text());
+       $(".btnGame:first-child").val($(this).text());
     });
   
   });
