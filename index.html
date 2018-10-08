@@ -35,8 +35,6 @@
 		</button>
 		<div class="dropdown-menu dropdown-game-menu" style="min-width: 12em;" aria-labelledby="dropdownMenu1">
 			<a class="dropdown-item" href="#!">Fortnite</a>
-			<a class="dropdown-item" href="#!">Destiny</a>
-			<a class="dropdown-item" href="#!">Fucking Salt</a>
 		</div>
 	</div>
 	{% if user %}
@@ -69,7 +67,7 @@
 		<div class="centered">
 			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
 			{% if user %}
-			<h2>Barry Flash Man</h2>
+			<h2>{{ user }}</h2>
 			<p>Total Score: 3000</p>
 			{% else %}
 			<h2>No User logged in</h2>
@@ -116,73 +114,40 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
+				<form action="/sign?guestbook_name={{ guestbook_name }}" method="post"></form>
 				<div class="modal-body">
 					<table>
-                        <tr>
-                            <td>
-                                Profile Picture
-                            </td>
-                            <td>
-                                [Picture]
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Username:
-                            </td>
-                            <td>
-                                [NAME]
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Email:
-                            </td>
-                            <td>
-                                [EMAIL]
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                DOB:
-                            </td>
-                            <td>
-                                [DATE OF BIRTH]
-                            </td>
-                        </tr>
-                    </table>
-                    <h3>Connected Games</h3>
-                    <table>
-                        <tr>
-                            <td>
-                                Service 1
-                            </td>
-                            <td>
-                                [Picture]
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Service 2
-                            </td>
-                            <td>
-                                [Picture]
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Service 3
-                            </td>
-                            <td>
-                                [Picture]
-                            </td>
-                        </tr>
-                    </table>
+						<tr>
+							<td>
+
+							</td>
+							<td>
+								<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Fortnite Handel:
+							</td>
+							<td>
+								<input type="text" name="handel" class="input-block-level" rows="1">
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Email:
+							</td>
+							<td>
+								{{ user }}
+							</td>
+						</tr>
+					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
+					<button type="button" class="btn btn-primary" value="Sign Guestbook">Save changes</button>
 				</div>
+				</form>
 			</div>
 		</div>
 	</div>

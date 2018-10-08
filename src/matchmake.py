@@ -13,5 +13,5 @@ def matchmake(players):
 		return
 
 
-players = ['aox_', 'Ninja', 'GassyKraken', 'Soul-Cake', 'Muselk']
+players = ['aox_', 'Ninja', 'GassyKraken', 'Soul-Cake', 'Muselk', 'SleazyJo']
 matchmake(players)
