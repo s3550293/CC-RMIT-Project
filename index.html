@@ -41,7 +41,7 @@
 	{% if user %}
 	<button type="button" class="btn btn-primary" style="min-width: 12em;" onclick="matchFound();">Search</button>
 	{% else %}
-	<button type="button" class="btn btn-secondary" style="min-width: 12em;">Search</button>
+	<button type="button" class="btn btn-secondary" style="min-width: 12em;" action="/search" method="post">Search</button>
 	{% endif %}
 	<button type="button" class="btn btn-danger" style="min-width: 12em;" onclick="resetMatches();">Cancel</button>
 	<!-- <img class="rounded-circle" style="height: 64px;" src="img/profiles/MaleOne.png" alt="Circle image"> -->

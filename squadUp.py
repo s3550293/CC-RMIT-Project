@@ -43,9 +43,12 @@ class MainPage(webapp2.RequestHandler):
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
+
             email = users.get_current_user().email()
+
             db = connect_to_cloudsql()
             cursor = db.cursor()
+
             cursor.execute('USE squadUp')
             cursor.execute('Select EpicUserHandle from UserData where Email like "'+email+'";')
             myresult = cursor.fetchall()
@@ -89,12 +92,12 @@ class Handle(webapp2.RequestHandler):
 class Search(webapp2.RequestHandler):
 
     def post(self):
-        print 'hello'
+        self.response.out.write('<b>Hello World</b>')
 
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/update', Handle),
-    ('/matchmake', Search)
+    ('/search', Search)
 ], debug=True)
 # [END app]
