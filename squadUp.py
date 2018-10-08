@@ -1,5 +1,6 @@
 import os
 import urllib
+import logging
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -39,6 +40,8 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
+        logging.info('This is an info message')
+
         user = users.get_current_user()
         if user:
             url = users.create_logout_url(self.request.uri)
@@ -50,7 +53,7 @@ class MainPage(webapp2.RequestHandler):
             cursor = db.cursor()
 
             cursor.execute('USE squadUp')
-            cursor.execute('Select EpicUserHandle from UserData where Email like "'+email+'";')
+            cursor.execute('Select EpicUserHandle from UserData where Email like "'+ email +'";')
             myresult = cursor.fetchall()
             for x in myresult:
                 fHandle = x
@@ -71,6 +74,8 @@ class MainPage(webapp2.RequestHandler):
 class Handle(webapp2.RequestHandler):
 
     def post(self):
+        logging.info('This is an info message')
+
         if users.get_current_user():
                     email = users.get_current_user().email()
         handelName = self.request.get('handel')
@@ -91,7 +96,7 @@ class Handle(webapp2.RequestHandler):
 class Search(webapp2.RequestHandler):
 
     def post(self):
-        self.response.out.write('<b>Hello World</b>')
+        logging.info('We have started searching for the teammates')
 
 # [START app]
 app = webapp2.WSGIApplication([

@@ -41,7 +41,9 @@
 	{% if user %}
 	<button type="button" class="btn btn-primary" style="min-width: 12em;" onclick="matchFound();">Search</button>
 	{% else %}
-	<button type="button" class="btn btn-secondary" style="min-width: 12em;" action="/search" method="post">Search</button>
+	<form action="/search" method="post">
+	<input type="submit" class="btn btn-secondary" style="min-width: 12em;" action="/search" method="post">Search</button>
+	</form>
 	{% endif %}
 	<button type="button" class="btn btn-danger" style="min-width: 12em;" onclick="resetMatches();">Cancel</button>
 	<!-- <img class="rounded-circle" style="height: 64px;" src="img/profiles/MaleOne.png" alt="Circle image"> -->
@@ -133,7 +135,7 @@
 								Fortnite Handle:
 							</td>
 							<td>
-								<input type="text" name="handel" placeholder={{ fHandle }} class="input-block-level" rows="1">
+								<input type="text" name="handel" placeholder="{{ fHandle }}" class="input-block-level" rows="1">
 							</td>
 						</tr>
 						<tr>
@@ -148,7 +150,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+					<button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button>
 				</div>
 				</form>
 			</div>

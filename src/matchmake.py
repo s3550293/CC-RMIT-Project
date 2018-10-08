@@ -30,6 +30,7 @@ def matchmake(players):
 
 def search():
 	print "We are searching"
+	
 	return
 
 players = ['Ninja', 'Dark', 'Not Tfue', 'Symfuhny', 'TSM_Myth', 'C9 ZOOF', 'YamatoN_jp']
