@@ -30,23 +30,22 @@ def connect_to_cloudsql():
 
     return db
 
-
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
         fHandle = ""
+        email = ""
         user = users.get_current_user()
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
 
-            email = users.get_current_user().email()
+            email = user.email()
 
             db = connect_to_cloudsql()
             cursor = db.cursor()
@@ -54,6 +53,9 @@ class MainPage(webapp2.RequestHandler):
             cursor.execute('USE squadUp')
             cursor.execute('Select EpicUserHandle from UserData where Email like "'+ email +'";')
             myresult = cursor.fetchall()
+
+            logging.critical(myresult)
+
             for x in myresult:
                 fHandle = x
         else:
@@ -62,8 +64,8 @@ class MainPage(webapp2.RequestHandler):
 
         template_values = {
             'user': user,
-            'email': email,
             'fHandle': fHandle,
+            'email': email,
             'url': url,
             'url_linktext': url_linktext,
         }
@@ -72,37 +74,35 @@ class MainPage(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
 # [START Handel]
-class Handle(webapp2.RequestHandler):
+class ProfileUpdate(webapp2.RequestHandler):
 
     def post(self):
-        logging.info('FUCKIN WORK')
-        if users.get_current_user():
-                    email = users.get_current_user().email()
-        handelName = self.request.get('handel')
+        logging.critical('Save Fortnite Handle')
+
+        user = users.get_current_user()
+        email = ''
+
+        if user:
+            email = user.email()
+
+        fortnitehandle = self.request.get('fortnitehandle')
+
+        logging.critical('Fortnite Handle: ' + fortnitehandle)
+
         db = connect_to_cloudsql()
         cursor = db.cursor()
         cursor.execute('USE squadUp')
-        sql = "INSERT INTO customers (Email, EpicUserHandle, AccountId, SoloRating, DuoRating, SquadRating) VALUES (%s, %s,%s, %d,%d, %d)"
-        val = (email, handelName,"",0,0,0)
-        cursor.execute(sql, val)
+        sql = "INSERT INTO squadusers (Email, FortniteHandle, AccountId, Solo, Duo, Squad) VALUES ('%s', '%s', '%s', %d, %d, %d)" % (email, fortnitehandle, 'hello', 0, 0, 0)
+        cursor.execute(sql)
+        db.close()
 
+        query_params = {'fortnitehandle': fortnitehandle}
         self.redirect('/')
-        # 
-        # rows_to_insert = [
-        #     ('handelName','','','','',email)
-        # ]
-        # errors = bigquery_client.insert_rows(table, rows_to_insert)
 # [END Handel]
-
-class Search(webapp2.RequestHandler):
-
-    def post(self):
-        logging.info('We have started searching for the teammates')
 
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/update', Handle),
-    ('/search', Search)
+    ('/update', ProfileUpdate),
 ], debug=True)
 # [END app]

@@ -35,15 +35,15 @@
 			Video Game Select
 		</button>
 		<div class="dropdown-menu dropdown-game-menu" style="min-width: 12em;" aria-labelledby="dropdownMenu1">
-			<a class="dropdown-item" href="#!">Fortnite</a>
+			<a class="dropdown-item">Fortnite</a>
 		</div>
 	</div>
 	{% if user %}
-	<button type="button" class="btn btn-primary" style="min-width: 12em;" onclick="matchFound();">Search</button>
-	{% else %}
 	<form action="/search" method="post">
-	<input type="submit" class="btn btn-secondary" style="min-width: 12em;" action="/search" method="post">Search</button>
+		<input type="button" class="btn btn-primary" style="min-width: 12em;" value="Search" onclick="matchFound();">
 	</form>
+	{% else %}
+	<button type="submit" class="btn btn-secondary" style="min-width: 12em;">Search</button>
 	{% endif %}
 	<button type="button" class="btn btn-danger" style="min-width: 12em;" onclick="resetMatches();">Cancel</button>
 	<!-- <img class="rounded-circle" style="height: 64px;" src="img/profiles/MaleOne.png" alt="Circle image"> -->
@@ -66,17 +66,73 @@
 </nav>
 
 <body>
+	<!-- PROFILE -->
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModal3Label">Profile</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form action="/update?fortnitehandle" method="post">
+					<div>
+						<table>
+							<tr>
+								<td>
+			
+								</td>
+								<td>
+									<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Fortnite Handle:
+								</td>
+								<td>
+									{% if fHandle %}
+										{{ fHandle }}
+									{% else %}
+										<input type="text" name="fortnitehandle" class="input-block-level" rows="1"/>
+									{% endif %}
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Email:
+								</td>
+								<td>
+									{{ email }}
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div>
+						<input type="submit" class="btn btn-large btn-primary" value="Save Changes">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 	<div id="User" class="split One">
 		<div class="centered">
 			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
 			{% if user %}
+				{% if fHandle %}
 				<h2>{{ fHandle }}</h2>
+				{% else %}
+				<h2>Set your Fortnite Handle In Profile</h2>
+				{% endif %}
 				<h4>Total Score: 3000</h4>
 				<h4>50% Win rate in solo</h4>
 				<h4>45% Win rate in duo</h4>
 			{% else %}
-			<h2>No User logged in</h2>
-			<p>-</p>
+				<h2>No User logged in</h2>
+				<p>-</p>
 			{% endif %}
 		</div>
 	</div>
@@ -104,63 +160,8 @@
 			<p>Some text here too.</p>
 		</div>
 	</div>
-	<!-- PROFILE -->
 
 
-
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
-	 aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModal3Label">Profile</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form action="/update" method="post"></form>
-				<div class="modal-body">
-					<table>
-						<tr>
-							<td>
-
-							</td>
-							<td>
-								<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Fortnite Handle:
-							</td>
-							<td>
-								{% if fHandle %}
-									{{ fHandle }}
-								{% else %}
-									<input type="text" name="handel" class="input-block-level" rows="1">
-								{% endif %}
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Email:
-							</td>
-							<td>
-								{{ email }}
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<!-- <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button> -->
-					<div><input type="submit" class="btn btn-large btn-primary" value="Save changes" data-dismiss="modal"></div>
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="bootstrap/vendor/jquery/jquery.min.js"></script>

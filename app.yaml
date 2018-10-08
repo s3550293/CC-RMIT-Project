@@ -1,19 +1,12 @@
 runtime: python27
-env: standard
 threadsafe: true
 api_version: 1
 
 handlers:
-# - url: /(.+)
-#   static_files: app/\1
-#   upload: app/.*
-
 - url: /bootstrap
   static_dir: bootstrap
 
-- url: .*
-  # static_files: app/index.html
-  # upload: app/index.html
+- url: /.*
   script: squadUp.app
 
 libraries:
@@ -22,7 +15,7 @@ libraries:
 - name: jinja2
   version: latest
 - name: MySQLdb
-  version: "latest"
+  version: latest
 
 env_variables:
   CLOUDSQL_CONNECTION_NAME: squad-up-cc:australia-southeast1:squadup-sql
