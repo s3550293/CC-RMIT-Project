@@ -83,7 +83,6 @@ class MainPage(webapp2.RequestHandler):
 class Handle(webapp2.RequestHandler):
 
     def post(self):
-        print 'hello World'
         if users.get_current_user():
                     email = users.get_current_user().email()
         handelName = self.request.get('handel')

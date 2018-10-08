@@ -117,7 +117,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="/sign?" method="post"></form>
+				<form action="/update" method="post"></form>
 				<div class="modal-body">
 					<table>
 						<tr>
@@ -141,14 +141,14 @@
 								Email:
 							</td>
 							<td>
-								{{ users.get_current_user().email() }}
+								{{ user }}
 							</td>
 						</tr>
 					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" value="Sign Guestbook">Save changes</button>
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
 				</div>
 				</form>
 			</div>
