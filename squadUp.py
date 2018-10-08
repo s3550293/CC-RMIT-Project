@@ -4,21 +4,6 @@ import urllib
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-# Imports the Google Cloud client library
-# from google.cloud import bigquery
-
-# Instantiates a client
-# bigquery_client = bigquery.Client()
-
-# # The name for the new dataset
-# dataset_id = 'userData'
-# table_id = 'users'  # replace with your table ID
-# table_ref = bigquery_client.dataset(dataset_id).table(table_id)
-# table = bigquery_client.get_table(table_ref)  # API request
-# # Prepares a reference to the new dataset
-# dataset_ref = bigquery_client.dataset(dataset_id)
-# dataset = bigquery.Dataset(dataset_ref)
-
 import jinja2
 import webapp2
 import MySQLdb
