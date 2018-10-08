@@ -1,5 +1,6 @@
 import os
 import urllib
+import logging
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -54,6 +55,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
+        fHandle = ""
         user = users.get_current_user()
         if user:
             url = users.create_logout_url(self.request.uri)
@@ -72,6 +74,8 @@ class MainPage(webapp2.RequestHandler):
 
         template_values = {
             'user': user,
+            'email': email,
+            'fHandle': fHandle,
             'url': url,
             'url_linktext': url_linktext,
         }
@@ -83,6 +87,7 @@ class MainPage(webapp2.RequestHandler):
 class Handle(webapp2.RequestHandler):
 
     def post(self):
+        logging.info('FUCKIN WORK')
         if users.get_current_user():
                     email = users.get_current_user().email()
         handelName = self.request.get('handel')
@@ -93,6 +98,7 @@ class Handle(webapp2.RequestHandler):
         val = (email, handelName,"",0,0,0)
         cursor.execute(sql, val)
 
+        self.redirect('/')
         # 
         # rows_to_insert = [
         #     ('handelName','','','','',email)

@@ -68,10 +68,10 @@
 		<div class="centered">
 			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
 			{% if user %}
-			<h2>{{ fHandle }}</h2>
-			<h4>Total Score: 3000</h4>
-			<h4>50% Win rate in solo</h4>
-			<h4>45% Win rate in duo</h4>
+				<h2>{{ fHandle }}</h2>
+				<h4>Total Score: 3000</h4>
+				<h4>50% Win rate in solo</h4>
+				<h4>45% Win rate in duo</h4>
 			{% else %}
 			<h2>No User logged in</h2>
 			<p>-</p>
@@ -133,7 +133,11 @@
 								Fortnite Handle:
 							</td>
 							<td>
-								<input type="text" name="handel" placeholder={{ fHandle }} class="input-block-level" rows="1">
+								{% if fHandle %}
+									{{ fHandle }}
+								{% else %}
+									<input type="text" name="handel" class="input-block-level" rows="1">
+								{% endif %}
 							</td>
 						</tr>
 						<tr>
@@ -141,14 +145,15 @@
 								Email:
 							</td>
 							<td>
-								{{ user }}
+								{{ email }}
 							</td>
 						</tr>
 					</table>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
+					<!-- <button type="submit" class="btn btn-primary" data-dismiss="modal">Save changes</button> -->
+					<div><input type="submit" class="btn btn-large btn-primary" value="Save changes" data-dismiss="modal"></div>
 				</div>
 				</form>
 			</div>
