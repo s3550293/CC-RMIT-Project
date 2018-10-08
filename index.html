@@ -68,7 +68,7 @@
 		<div class="centered">
 			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
 			{% if user %}
-			<h2>{{ user }}</h2>
+			<h2>{{ fHandle }}</h2>
 			<h4>Total Score: 3000</h4>
 			<h4>50% Win rate in solo</h4>
 			<h4>45% Win rate in duo</h4>
@@ -130,10 +130,10 @@
 						</tr>
 						<tr>
 							<td>
-								Fortnite Handel:
+								Fortnite Handle:
 							</td>
 							<td>
-								<input type="text" name="handel" class="input-block-level" rows="1">
+								<input type="text" name="handel" placeholder={{ fHandle }} class="input-block-level" rows="1">
 							</td>
 						</tr>
 						<tr>
@@ -141,7 +141,7 @@
 								Email:
 							</td>
 							<td>
-								{{ user }}
+								{{ users.get_current_user().email() }}
 							</td>
 						</tr>
 					</table>
