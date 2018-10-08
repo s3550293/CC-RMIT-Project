@@ -40,7 +40,7 @@ def connect_to_cloudsql():
             passwd=CLOUDSQL_PASSWORD)
 
     else:
-        db = MySQLdb.connect(host='127.0.0.1', user=CLOUDSQL_USER, passwd=CLOUDSQL_PASSWORD)
+        db = MySQLdb.connect(host='127.0.0.1', user=CLOUDSQL_USER, passwd=CLOUDSQL_PASSWORD, database='squadUp')
 
     return db
 
@@ -71,18 +71,25 @@ class MainPage(webapp2.RequestHandler):
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))
 
-# [START guestbook]
+# [START Handel]
 class Handel(webapp2.RequestHandler):
 
     def post(self):
+        print 'hello World'
         if users.get_current_user():
                     email = users.get_current_user().email()
-        # handelName = self.request.get('handel')
+        handelName = self.request.get('handel')
+        cursor = connect_to_cloudsql().cursor()
+        sql = "INSERT INTO customers (Email, EpicUserHandle, AccountId, SoloRating, DuoRating, SquadRating) VALUES (%s, %s,%s, %d,%d, %d)"
+        val = (email, handelName,"",0,0,0)
+        cursor.execute(sql, val)
+
+        # 
         # rows_to_insert = [
         #     ('handelName','','','','',email)
         # ]
         # errors = bigquery_client.insert_rows(table, rows_to_insert)
-# [END guestbook]
+# [END Handel]
 
 class Search(webapp2.RequestHandler):
 
