@@ -96,7 +96,7 @@ class ProfileUpdate(webapp2.RequestHandler):
         db = connect_to_cloudsql()
         cursor = db.cursor()
         cursor.execute('USE squadUp;')
-        sql = "INSERT INTO squadusers (Email, FortniteHandle, AccountId, Solo, Duo, Squad) VALUES ('%s', %s, hello, %d, %d, %d);" % (email, fortnitehandle, 0, 0, 0)
+        sql = "INSERT INTO squadusers (Email, FortniteHandle, AccountId, Solo, Duo, Squad) VALUES ('%s', '%s', '%s', %d, %d, %d);" % (email, fortnitehandle, 'hello', 0, 0, 0)
         cursor.execute(sql)
         cursor.close()
 
