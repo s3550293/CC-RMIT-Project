@@ -3,10 +3,20 @@ threadsafe: true
 api_version: 1
 
 handlers:
-- url: /(.+)
-  static_files: app/\1
-  upload: app/.*
+# - url: /(.+)
+#   static_files: app/\1
+#   upload: app/.*
 
-- url: /
-  static_files: app/index.html
-  upload: app/index.html
+- url: /bootstrap
+  static_dir: bootstrap
+
+- url: .*
+  # static_files: app/index.html
+  # upload: app/index.html
+  script: squadUp.app
+
+libraries:
+- name: webapp2
+  version: latest
+- name: jinja2
+  version: latest

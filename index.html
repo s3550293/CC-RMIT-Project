@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Draft</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="bootstrap/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom fonts for this template -->
+	<link href="bootstrap/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+
+	<!-- Plugin CSS -->
+	<link href="vendor/magnific-popup/magnific-popup.css" rel="stylesheet" type="text/css">
+
+	<!-- Custom styles for this template -->
+	<!-- <link href="css/freelancer.min.css" rel="stylesheet"> -->
+	<link href="bootstrap/css/override.css" rel="stylesheet">
+
+</head>
+<nav class="navbar navbar-light bg-light">
+	<h2>Squadup</h2>
+	<div class="dropdown">
+		<button class="btn btn-warning dropdown-toggle btnGame" style="min-width: 12em;" type="button" id="dropdownMenu1"
+		 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Video Game Select
+		</button>
+		<div class="dropdown-menu dropdown-game-menu" style="min-width: 12em;" aria-labelledby="dropdownMenu1">
+			<a class="dropdown-item" href="#!">Fortnite</a>
+			<a class="dropdown-item" href="#!">Destiny</a>
+			<a class="dropdown-item" href="#!">Fucking Salt</a>
+		</div>
+	</div>
+	{% if user %}
+	<button type="button" class="btn btn-primary" style="min-width: 12em;" onclick="matchFound();">Search</button>
+	{% else %}
+	<button type="button" class="btn btn-secondary" style="min-width: 12em;">Search</button>
+	{% endif %}
+	<button type="button" class="btn btn-danger" style="min-width: 12em;" onclick="resetMatches();">Cancel</button>
+	<!-- <img class="rounded-circle" style="height: 64px;" src="img/profiles/MaleOne.png" alt="Circle image"> -->
+	{% if user %}
+	<div class="dropdown">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+		 aria-expanded="false">
+			<img class="rounded-circle" style="height: 64px;" src="bootstrap/img/profiles/MaleOne.png" alt="Circle image">
+		</button>
+		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+			<!-- <a class="dropdown-item" data-toggle="modal">Profile</a> -->
+			<button type="button" class="dropdown-item" data-toggle="modal" data-target="#exampleModal3">Profile</button>
+			<a class="dropdown-item" href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
+		</div>
+	</div>
+	{% else %}
+	<a href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
+	{% endif %}
+
+</nav>
+
+<body>
+	<div id="User" class="split One">
+		<div class="centered">
+			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
+			{% if user %}
+			<h2>Barry Flash Man</h2>
+			<p>Total Score: 3000</p>
+			{% else %}
+			<h2>No User logged in</h2>
+			<p>-</p>
+			{% endif %}
+		</div>
+	</div>
+
+	<div id="MatchOne" class="split Two">
+		<div class="centered">
+			<img src="bootstrap/img/profiles/FemaleOne.png" alt="Avatar man">
+			<h2>Match One</h2>
+			<p>Some text here too.</p>
+		</div>
+	</div>
+
+	<div id="MatchTwo" class="split Three">
+		<div class="centered">
+			<img src="bootstrap/img/profiles/MaleTwo.png" alt="Avatar man">
+			<h2>Match Two</h2>
+			<p>Some text here too.</p>
+		</div>
+	</div>
+
+	<div id="MatchThree" class="split Four">
+		<div class="centered">
+			<img src="bootstrap/img/profiles/FemaleTwo.png" alt="Avatar man">
+			<h2>Match Three</h2>
+			<p>Some text here too.</p>
+		</div>
+	</div>
+	<!-- PROFILE -->
+
+
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+	 aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModal3Label">Profile</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<table>
+                        <tr>
+                            <td>
+                                Profile Picture
+                            </td>
+                            <td>
+                                [Picture]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Username:
+                            </td>
+                            <td>
+                                [NAME]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Email:
+                            </td>
+                            <td>
+                                [EMAIL]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                DOB:
+                            </td>
+                            <td>
+                                [DATE OF BIRTH]
+                            </td>
+                        </tr>
+                    </table>
+                    <h3>Connected Games</h3>
+                    <table>
+                        <tr>
+                            <td>
+                                Service 1
+                            </td>
+                            <td>
+                                [Picture]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Service 2
+                            </td>
+                            <td>
+                                [Picture]
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Service 3
+                            </td>
+                            <td>
+                                [Picture]
+                            </td>
+                        </tr>
+                    </table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="bootstrap/vendor/jquery/jquery.min.js"></script>
+	<script src="bootstrap/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="bootstrap/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="bootstrap/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+	<!-- Contact Form JavaScript -->
+	<script src="bootstrap/js/jqBootstrapValidation.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="bootstrap/js/override.js"></script>
+
+</body>
+
+</html>
+{% endautoescape %}
