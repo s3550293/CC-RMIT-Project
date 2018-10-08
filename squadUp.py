@@ -96,8 +96,14 @@ class ProfileUpdate(webapp2.RequestHandler):
         cursor.execute(sql)
         db.close()
 
-        query_params = {'fortnitehandle': fortnitehandle}
-        self.redirect('/')
+        template_values = {
+            'user': user,
+            'fHandle': fortnitehandle,
+            'email': email
+        }
+
+        template = JINJA_ENVIRONMENT.get_template('index.html')
+        self.response.write(template.render(template_values))
 # [END Handel]
 
 # [START app]
