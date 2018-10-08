@@ -40,7 +40,7 @@ def connect_to_cloudsql():
             passwd=CLOUDSQL_PASSWORD)
 
     else:
-        db = MySQLdb.connect(host='127.0.0.1', user=CLOUDSQL_USER, passwd=CLOUDSQL_PASSWORD, database='squadUp')
+        db = MySQLdb.connect(host='127.0.0.1', user=CLOUDSQL_USER, passwd=CLOUDSQL_PASSWORD)
 
     return db
 
@@ -58,6 +58,14 @@ class MainPage(webapp2.RequestHandler):
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
+            email = users.get_current_user().email()
+            db = connect_to_cloudsql()
+            cursor = db.cursor()
+            cursor.execute('USE squadUp')
+            cursor.execute('Select EpicUserHandle from UserData where Email like "'+email+'";')
+            myresult = cursor.fetchall()
+            for x in myresult:
+                fHandle = x
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
@@ -72,14 +80,16 @@ class MainPage(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
 
 # [START Handel]
-class Handel(webapp2.RequestHandler):
+class Handle(webapp2.RequestHandler):
 
     def post(self):
         print 'hello World'
         if users.get_current_user():
                     email = users.get_current_user().email()
         handelName = self.request.get('handel')
-        cursor = connect_to_cloudsql().cursor()
+        db = connect_to_cloudsql()
+        cursor = db.cursor()
+        cursor.execute('USE squadUp')
         sql = "INSERT INTO customers (Email, EpicUserHandle, AccountId, SoloRating, DuoRating, SquadRating) VALUES (%s, %s,%s, %d,%d, %d)"
         val = (email, handelName,"",0,0,0)
         cursor.execute(sql, val)
@@ -99,7 +109,7 @@ class Search(webapp2.RequestHandler):
 # [START app]
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/update', Handel),
+    ('/update', Handle),
     ('/matchmake', Search)
 ], debug=True)
 # [END app]
