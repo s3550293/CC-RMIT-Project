@@ -68,7 +68,9 @@
 			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
 			{% if user %}
 			<h2>{{ user }}</h2>
-			<p>Total Score: 3000</p>
+			<h4>Total Score: 3000</h4>
+			<h4>50% Win rate in solo</h4>
+			<h4>45% Win rate in duo</h4>
 			{% else %}
 			<h2>No User logged in</h2>
 			<p>-</p>
@@ -114,7 +116,7 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-				<form action="/sign?guestbook_name={{ guestbook_name }}" method="post"></form>
+				<form action="/sign?" method="post"></form>
 				<div class="modal-body">
 					<table>
 						<tr>
