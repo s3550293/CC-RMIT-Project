@@ -50,14 +50,16 @@ class MainPage(webapp2.RequestHandler):
             db = connect_to_cloudsql()
             cursor = db.cursor()
 
-            cursor.execute('USE squadUp')
-            cursor.execute('Select EpicUserHandle from UserData where Email like "'+ email +'";')
+            cursor.execute('USE squadUp;')
+            cursor.execute('Select FortniteHandle from squadusers where email like "'+ email +'";')
             myresult = cursor.fetchall()
 
             logging.critical(myresult)
 
             for x in myresult:
                 fHandle = x
+
+            cursor.close()
         else:
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
@@ -84,6 +86,8 @@ class ProfileUpdate(webapp2.RequestHandler):
 
         if user:
             email = user.email()
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'Logout'
 
         fortnitehandle = self.request.get('fortnitehandle')
 
@@ -91,15 +95,17 @@ class ProfileUpdate(webapp2.RequestHandler):
 
         db = connect_to_cloudsql()
         cursor = db.cursor()
-        cursor.execute('USE squadUp')
-        sql = "INSERT INTO squadusers (Email, FortniteHandle, AccountId, Solo, Duo, Squad) VALUES ('%s', '%s', '%s', %d, %d, %d)" % (email, fortnitehandle, 'hello', 0, 0, 0)
+        cursor.execute('USE squadUp;')
+        sql = "INSERT INTO squadusers (Email, FortniteHandle, AccountId, Solo, Duo, Squad) VALUES ('%s', %s, hello, %d, %d, %d);" % (email, fortnitehandle, 0, 0, 0)
         cursor.execute(sql)
-        db.close()
+        cursor.close()
 
         template_values = {
             'user': user,
             'fHandle': fortnitehandle,
-            'email': email
+            'email': email,
+            'url': url,
+            'url_linktext': url_linktext,
         }
 
         template = JINJA_ENVIRONMENT.get_template('index.html')

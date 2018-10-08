@@ -15,7 +15,7 @@ libraries:
 - name: jinja2
   version: latest
 - name: MySQLdb
-  version: latest
+  version: "latest"
 
 env_variables:
   CLOUDSQL_CONNECTION_NAME: squad-up-cc:australia-southeast1:squadup-sql
