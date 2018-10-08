@@ -21,7 +21,28 @@ from google.appengine.ext import ndb
 
 import jinja2
 import webapp2
+import MySQLdb
 
+# These environment variables are configured in app.yaml.
+CLOUDSQL_CONNECTION_NAME = os.environ.get('CLOUDSQL_CONNECTION_NAME')
+CLOUDSQL_USER = os.environ.get('CLOUDSQL_USER')
+CLOUDSQL_PASSWORD = os.environ.get('CLOUDSQL_PASSWORD')
+
+def connect_to_cloudsql():
+
+    if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine/'):
+        cloudsql_unix_socket = os.path.join(
+            '/cloudsql', CLOUDSQL_CONNECTION_NAME)
+
+        db = MySQLdb.connect(
+            unix_socket=cloudsql_unix_socket,
+            user=CLOUDSQL_USER,
+            passwd=CLOUDSQL_PASSWORD)
+
+    else:
+        db = MySQLdb.connect(host='127.0.0.1', user=CLOUDSQL_USER, passwd=CLOUDSQL_PASSWORD)
+
+    return db
 
 
 JINJA_ENVIRONMENT = jinja2.Environment(

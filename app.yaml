@@ -1,4 +1,5 @@
 runtime: python27
+env: standard
 threadsafe: true
 api_version: 1
 
@@ -20,3 +21,10 @@ libraries:
   version: latest
 - name: jinja2
   version: latest
+- name: MySQLdb
+  version: "latest"
+
+env_variables:
+  CLOUDSQL_CONNECTION_NAME: squad-up-cc:australia-southeast1:squadup-sql
+  CLOUDSQL_USER: root
+  CLOUDSQL_PASSWORD: stxN}zk2zPC#7_[-
