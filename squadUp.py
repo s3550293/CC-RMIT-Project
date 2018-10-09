@@ -51,10 +51,12 @@ class UserData(db.Model):
     DuoRating = db.Column(db.Integer, nullable=True)
     SquadRating = db.Column(db.Integer, nullable=True)
 
-    def __init__(self, email, epicuserhandle, accountid):
+    def __init__(self, email, epicuserhandle, accountid, score, mm):
         self.Email = email
         self.EpicUserHandle = epicuserhandle
         self.AccountId = accountid
+        self.SoloRating = score
+        self.SquadRating = mm
 
     def __repr__(self):
         return '<Email %r>' % self.email
@@ -73,11 +75,15 @@ def index():
         data = json.loads(resp.content)
 
         accountId = data["accountId"]
+        score = data["lifeTimeStats"][6].get('value')
+        rating = data["stats"]["p9"]["trnRating"]["valueInt"]
 
         currUser = UserData(
             email=email, 
             epicuserhandle=fHandle, 
-            accountid=accountId
+            accountid=accountId,
+            score=score,
+            mm=rating
         )
 
         db.session.add(currUser)
@@ -99,6 +105,9 @@ def index():
             squ = UserData.query.filter_by(Email=email).first()
             if squ:
                 logging.info(squ.Email)
+                fHandle = squ.EpicUserHandle
+
+                return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
         else:
             url = users.create_login_url('/')
             url_linktext = 'Login'
@@ -110,6 +119,12 @@ def profile():
     user = users.get_current_user()
     email = user.email()
     return render_template('profile.html', email=email)
+
+@app.route('/search')
+def search():
+    user = users.get_current_user()
+    # When complete
+    return render_template('search.html')
 
 @app.errorhandler(500)
 def server_error(e):
