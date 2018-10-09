@@ -26,7 +26,7 @@ def connect_to_cloudsql():
             passwd=CLOUDSQL_PASSWORD)
 
     else:
-        db = MySQLdb.connect(host='127.0.0.1', user=CLOUDSQL_USER, passwd=CLOUDSQL_PASSWORD)
+        db = MySQLdb.connect(host='35.197.191.91', user=CLOUDSQL_USER, passwd=CLOUDSQL_PASSWORD)
 
     return db
 
