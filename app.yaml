@@ -22,3 +22,4 @@ env_variables:
   CLOUDSQL_CONNECTION_NAME: squad-up-cc:australia-southeast1:squadup-sql
   CLOUDSQL_USER: root
   CLOUDSQL_PASSWORD: stxN}zk2zPC#7_[-
+  CLOUDSQL_DATABASE: squadUp
