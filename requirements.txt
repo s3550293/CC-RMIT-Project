@@ -1,1 +1,5 @@
+Flask==0.12.2
 google-cloud-storage==0.22.0
+Flask-SQLAlchemy==2.3.2
+PyMySQL==0.8.0
+Flask-PyMongo==0.5.1
