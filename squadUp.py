@@ -98,7 +98,7 @@ def index():
             
             squ = UserData.query.filter_by(Email=email)
 
-            logging.info(squ)
+            logging.info(squ.email)
         else:
             url = users.create_login_url('/')
             url_linktext = 'Login'
