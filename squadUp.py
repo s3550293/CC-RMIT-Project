@@ -11,7 +11,7 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from google.appengine.api import urlfetch
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 
 # requests_toolbelt.adapters.appengine.monkeypatch()
@@ -33,6 +33,7 @@ if os.environ.get('GAE_INSTANCE'):
     SQLALCHEMY_DATABASE_URI = LIVE_SQLALCHEMY_DATABASE_URI
 # [END DATABASE info]
 
+global_Email = ''
 
 # [START create_app]
 app = Flask(__name__)
@@ -75,6 +76,7 @@ def index():
     if request.method == 'POST':
         user = users.get_current_user()
         email = user.email()
+        global_Email = user.email()
         url = users.create_logout_url('/')
         url_linktext = 'Logout'
         
@@ -108,6 +110,7 @@ def index():
             url = users.create_logout_url('/')
             url_linktext = 'Logout'
             email = user.email()
+            global_Email = user.email()
             
             squadUser = UserData.query.filter_by(Email=email).first()
             if squadUser:
@@ -115,18 +118,25 @@ def index():
                 fHandle = squadUser.EpicUserHandle
                 
                 parent = parent_key(squadUser.Email)
-                user_key = ndb.Key(UserDataStore, fHandle, parent=parent)
-                # fetch = user_key.get()
-                # if fetch is None:
-                dataUser = UserDataStore(key=user_key, Email=squadUser.Email, EpicUserHandle=fHandle)
-                # dataUser.Email = squadUser.Email
-                # dataUser.EpicUserHandle = squadUser.EpicUserHandle
-                # dataUser.AccountId = currUser.AccountId
-                # dataUser.SoloRating = currUser.SquadRating
-
-                dataUser.put()
+                user_key = ndb.Key(UserDataStore, squadUser.Email, parent=parent)
+                fetch = user_key.get()
+                if fetch is None:
+                    dataUser = UserDataStore(key=user_key)
+                    dataUser.Email = squadUser.Email
+                    dataUser.EpicUserHandle = squadUser.EpicUserHandle
+                    dataUser.AccountId = squadUser.AccountId
+                    dataUser.SoloRating = squadUser.SoloRating
+                    dataUser.put()
+                
                 return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
         else:
+            # if global_Email != '':
+            #     parent = parent_key(global_Email)
+            #     user_key = ndb.Key(UserDataStore, global_Email, parent=parent)
+            #     fetch = user_key.get()
+            #     if fetch is not None:
+            #          fetch.key.delete()
+            #          global_Email = ''
             url = users.create_login_url('/')
             url_linktext = 'Login'
 
