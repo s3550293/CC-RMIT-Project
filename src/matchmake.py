@@ -18,7 +18,7 @@ def matchmake(players):
 		print "Solo Rating: " + str(data["stats"]["p2"]["trnRating"]["valueInt"])
 		print "Squads Rating: " + str(data["stats"]["p9"]["trnRating"]["valueInt"])
 		print "Duo Rating: " + str(data["stats"]["p10"]["trnRating"]["valueInt"])
-		print "Score: " + str(data["lifeTimeStats"][6].get('value'))
+		print "Score: " + data["lifeTimeStats"][6].get('value')
 		print "Matches Played: " + str(data["lifeTimeStats"][7].get('value'))
 		print "Wins: " + str(data["lifeTimeStats"][8].get('value'))
 		print "Win%: " + str(data["lifeTimeStats"][9].get('value'))
@@ -33,5 +33,5 @@ def search():
 	
 	return
 
-players = ['Ninja', 'Dark', 'Not Tfue', 'Symfuhny', 'TSM_Myth', 'C9 ZOOF', 'YamatoN_jp']
+players = ['SleazyJo', 'Dark', 'Not Tfue', 'Symfuhny', 'TSM_Myth', 'C9 ZOOF', 'YamatoN_jp']
 matchmake(players)

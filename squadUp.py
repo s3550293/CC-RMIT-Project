@@ -77,21 +77,22 @@ def index():
         email = user.email()
         url = users.create_logout_url('/')
         url_linktext = 'Logout'
+        
         fHandle = request.form['fortnitehandle']
 
         resp = urlfetch.fetch('https://api.fortnitetracker.com/v1/profile/pc/'+fHandle, headers={'TRN-Api-Key' : 'e5d4ace5-28ae-4579-a6d4-fad7b8ad556d'})
-        logging.info(resp.content)
         data = json.loads(resp.content)
 
         accountId = data["accountId"]
         score = data["lifeTimeStats"][6].get('value')
+        score = score.replace(',', '')
         rating = data["stats"]["p9"]["trnRating"]["valueInt"]
 
         currUser = UserData(
             email=email, 
             epicuserhandle=fHandle, 
             accountid=accountId,
-            score=score,
+            score=int(score),
             mm=rating
         )
 

@@ -5,3 +5,4 @@ PyMySQL==0.8.0
 Flask-PyMongo==0.5.1
 requests==2.1.0
 requests-toolbelt==0.8.0
+google-cloud-bigquery
