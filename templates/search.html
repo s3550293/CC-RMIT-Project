@@ -60,6 +60,16 @@
 </nav>
 
 <body>
+	<script>
+		$(document).ready(function(){
+			var socket = io.connect('http://127.0.0.1:5000');
+			socket.on('connect',function(){
+				socket.send('User Has Conected ')
+			});
+		});
+
+	</script>
+
 	<!-- PROFILE -->
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
