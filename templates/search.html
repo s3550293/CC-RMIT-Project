@@ -30,7 +30,8 @@
 	<script>
 			var pusher = new Pusher('5abda3965495f71e0f72', {
 				cluster: 'ap1',
-				forceTLS: true
+				authEndpoint: '/pusher/auth',
+				forceTLS: true,
 			});
 		
 			var channel = pusher.subscribe('private-channel');
