@@ -25,16 +25,29 @@
 	<!-- <link href="css/freelancer.min.css" rel="stylesheet"> -->
 	<link href="bootstrap/css/override.css" rel="stylesheet">
 
+	<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
+
 	<script>
-			// Enable pusher logging - don't include this in production
-			Pusher.logToConsole = true;
-		
 			var pusher = new Pusher('5abda3965495f71e0f72', {
-				cluster: 'ap1'
+				cluster: 'ap1',
+				forceTLS: true
 			});
 		
-			var channel = pusher.subscribe('my-channel');
-			channel.bind('my-event', function(data) {
+			var channel = pusher.subscribe('private-channel');
+			channel.bind('pusher:subscription_succeeded', function() {
+				alert(JSON.stringify(data));
+			});
+
+			channel.bind('search-event', function(data) {
+				alert(JSON.stringify(data));
+				
+				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
+				
+				var triggered = channel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
+				alert('Client Event Hopefully?');
+			});
+
+			channel.bind('client-acquiredevent', function(data) {
 				alert(JSON.stringify(data));
 			});
 	</script>
@@ -54,7 +67,7 @@
 	{% else %}
 		<button type="submit" class="btn btn-secondary" style="min-width: 12em;">Searching</button>
 	{% endif %}
-	<button type="button" class="btn btn-danger" style="min-width: 12em;" onclick="location.href = '/';">Cancel</button>
+	<button type="button" class="btn btn-danger" style="min-width: 12em;" onclick="location.href = '/cancel';">Cancel</button>
 	<!-- <img class="rounded-circle" style="height: 64px;" src="img/profiles/MaleOne.png" alt="Circle image"> -->
 	{% if user %}
 	<div class="dropdown">
@@ -70,63 +83,9 @@
 	{% else %}
 	<a href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
 	{% endif %}
-
 </nav>
 
 <body>
-	<!-- PROFILE -->
-	<!-- Modal -->
-	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
-	 aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModal3Label">Profile</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<form action="/update" method="post">
-					<div>
-						<table>
-							<tr>
-								<td>
-
-								</td>
-								<td>
-									<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Fortnite Handle:
-								</td>
-								<td>
-									{% if fHandle %}
-									{{ fHandle }}
-									{% else %}
-									<input name="fortnitehandle" type="text" class="input-block-level" rows="1" />
-									{% endif %}
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Email:
-								</td>
-								<td>
-									{{ email }}
-								</td>
-							</tr>
-						</table>
-					</div>
-					<div>
-						<input type="submit" class="btn btn-large btn-primary" value="Save Changes" />
-					</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
 	<div id="User" class="split One" style="width: 25%">
 		<div class="centered">
 			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
@@ -140,7 +99,7 @@
 	<div id="MatchOne" class="split Two" style="width: 25%; left: 25%;">
 		<div class="centered">
 			<img src="bootstrap/img/profiles/FemaleOne.png" alt="Avatar man">
-			<h2>Match One</h2>
+			<h2 id="fHandle">Match One</h2>
 			<p>Some text here too.</p>
 		</div>
 	</div>
@@ -174,8 +133,6 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="bootstrap/js/override.js"></script>
-
-	<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 </body>
 
 </html>

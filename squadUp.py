@@ -148,13 +148,13 @@ pusher_client = pusher.Pusher(
 
 @app.route('/search')
 def search():
-    pusher_client.trigger('my-channel', 'my-event', {'message': 'hello world'})
     logging.critical("Adding User to Data Store")
     user = users.get_current_user()
     squadUser = UserData.query.filter_by(Email=user.email()).first()
     parent = parent_key(user.email())
     user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
+
     if fetch is None:
         logging.critical("User Added")
         dataUser = UserDataStore(key=user_key)
@@ -162,9 +162,11 @@ def search():
         dataUser.EpicUserHandle = squadUser.EpicUserHandle
         dataUser.AccountId = squadUser.AccountId
         dataUser.SoloRating = squadUser.SoloRating
+
         dataUser.put()
+        pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
     # When complete
-    return render_template('search.html')
+    return render_template('search.html', fHandle=squadUser.EpicUserHandle)
 
 @app.route('/cancel')
 def cancel():
@@ -173,9 +175,28 @@ def cancel():
     parent = parent_key(user.email())
     user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
+
     if fetch is not None:
         fetch.key.delete()
-    return render_template('index.html')
+
+    url = users.create_logout_url('/')
+    url_linktext = 'Logout'
+    email = user.email()
+    squadUser = UserData.query.filter_by(Email=email).first()
+    fHandle = squadUser.EpicUserHandle
+
+    return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
+
+@app.route("/pusher/auth", methods=['POST'])
+def pusher_authentication():
+
+  auth = pusher.authenticate(
+    channel=request.form['channel_name'],
+    socket_id=request.form['socket_id']
+  )
+  return json.dumps(auth)
+
+
 
 # [END]
 
