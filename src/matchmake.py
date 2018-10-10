@@ -33,5 +33,5 @@ def search():
 	
 	return
 
-players = ['SleazyJo', 'Dark', 'Not Tfue', 'Symfuhny', 'TSM_Myth', 'C9 ZOOF', 'YamatoN_jp']
+players = ['SleazyJo', 'Ninja', 'Dark', 'Not Tfue', 'Symfuhny', 'TSM_Myth', 'C9 ZOOF', 'YamatoN_jp']
 matchmake(players)

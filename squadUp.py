@@ -13,6 +13,7 @@ from google.appengine.api import urlfetch
 
 from flask import Flask, render_template, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_socketio import SocketIO
 
 # requests_toolbelt.adapters.appengine.monkeypatch()
 # [END imports]
@@ -38,7 +39,10 @@ if os.environ.get('GAE_INSTANCE'):
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = LIVE_SQLALCHEMY_DATABASE_URI
+# Pro Key
+app.config['SECRET_KEY'] = 'secret' 
 db = SQLAlchemy(app)
+socketio = SocketIO(app)
 # [END create_app]
 
 def parent_key(user_key):
