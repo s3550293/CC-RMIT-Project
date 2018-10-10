@@ -62,9 +62,11 @@
 <body>
 	<script>
 		$(document).ready(function(){
+
 			var socket = io.connect('http://127.0.0.1:5000');
-			socket.on('connect',function(){
-				socket.send('User Has Conected ')
+
+			socket.on('connect', function() {
+				socket.send('User Has Conected');
 			});
 		});
 
@@ -171,6 +173,8 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="bootstrap/js/override.js"></script>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
 
 </body>
 
