@@ -172,7 +172,7 @@ def cancel():
     user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
     if fetch is not None:
-         fetch.key.delete()
+        fetch.key.delete()
     return render_template('index.html')
 
 # [END]

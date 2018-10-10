@@ -25,6 +25,20 @@
 	<!-- <link href="css/freelancer.min.css" rel="stylesheet"> -->
 	<link href="bootstrap/css/override.css" rel="stylesheet">
 
+	<script>
+			// Enable pusher logging - don't include this in production
+			Pusher.logToConsole = true;
+		
+			var pusher = new Pusher('5abda3965495f71e0f72', {
+				cluster: 'ap1'
+			});
+		
+			var channel = pusher.subscribe('my-channel');
+			channel.bind('my-event', function(data) {
+				alert(JSON.stringify(data));
+			});
+	</script>
+
 </head>
 
 <nav class="navbar navbar-light bg-light">
@@ -60,20 +74,6 @@
 </nav>
 
 <body>
-	<script>
-		// Enable pusher logging - don't include this in production
-		Pusher.logToConsole = true;
-	
-		var pusher = new Pusher('5abda3965495f71e0f72', {
-			cluster: 'ap1'
-		});
-	
-		var channel = pusher.subscribe('my-channel');
-		channel.bind('my-event', function(data) {
-			alert(JSON.stringify(data));
-		});
-	</script>
-
 	<!-- PROFILE -->
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
