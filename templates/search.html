@@ -61,21 +61,29 @@
 
 <body>
 	<script>
-		$(document).ready(function(){
 
-			var socket = io.connect('http://127.0.0.1:5000');
-
-			socket.on('connect', function() {
-				socket.send('User Has Conected');
-			});
+		// Enable pusher logging - don't include this in production
+		Pusher.logToConsole = true;
+	
+		var pusher = new Pusher('5abda3965495f71e0f72', {
+			cluster: 'ap1',
+			forceTLS: true
 		});
-
+	
+		var channel = pusher.subscribe('my-channel');
+		channel.bind('my-event', function(data) {
+			alert(JSON.stringify(data));
+		});
 	</script>
 
 	<!-- PROFILE -->
 	<!-- Modal -->
+<<<<<<< HEAD
+	<!-- <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+=======
 	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
 	 aria-hidden="true">
+>>>>>>> b92455d3339c904bf3b2b0a7a0f21cebc7ff78cf
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -157,9 +165,7 @@
 			<h2>Match Three</h2>
 			<p>Some text here too.</p>
 		</div>
-	</div>
-
-
+	</div> -->
 
 	<!-- Bootstrap core JavaScript -->
 	<script src="bootstrap/vendor/jquery/jquery.min.js"></script>
@@ -175,8 +181,7 @@
 	<!-- Custom scripts for this template -->
 	<script src="bootstrap/js/override.js"></script>
 
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
-
+	<script src="https://js.pusher.com/4.3/pusher.min.js"></script>
 </body>
 
 </html>
