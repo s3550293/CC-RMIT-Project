@@ -149,15 +149,16 @@ pusher_client = pusher.Pusher(
 @app.route('/search')
 def search():
     pusher_client.trigger('my-channel', 'my-event', {'message': 'hello world'})
-    
+    logging.critical("Adding User to Data Store")
     user = users.get_current_user()
     squadUser = UserData.query.filter_by(Email=user.email()).first()
-    parent = parent_key(squadUser.Email)
-    user_key = ndb.Key(UserDataStore, squadUser.Email, parent=parent)
+    parent = parent_key(user.email())
+    user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
     if fetch is None:
+        logging.critical("User Added")
         dataUser = UserDataStore(key=user_key)
-        dataUser.Email = squadUser.Email
+        dataUser.Email = user.email()
         dataUser.EpicUserHandle = squadUser.EpicUserHandle
         dataUser.AccountId = squadUser.AccountId
         dataUser.SoloRating = squadUser.SoloRating
@@ -165,14 +166,16 @@ def search():
     # When complete
     return render_template('search.html')
 
-@app.route('/')
+@app.route('/cancel')
 def cancel():
+    logging.critical("Deleting user")
     user = users.get_current_user()
     parent = parent_key(user.email())
     user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
     if fetch is not None:
-         fetch.key.delete()
+        logging.critical("User Deleted")
+        fetch.key.delete()
     return render_template('index.html')
 
 # [END]
