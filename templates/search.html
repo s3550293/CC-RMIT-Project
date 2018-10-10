@@ -31,24 +31,26 @@
 			var pusher = new Pusher('5abda3965495f71e0f72', {
 				cluster: 'ap1',
 				authEndpoint: '/pusher/auth',
-				forceTLS: true,
+				forceTLS: true
 			});
 		
-			var channel = pusher.subscribe('private-channel');
-			channel.bind('pusher:subscription_succeeded', function() {
+			var privateChannel = pusher.subscribe('private-channel');
+			var publicChannel = pusher.subscribe('public-channel');
+			privateChannel.bind('pusher:subscription_succeeded', function() {
 				alert(JSON.stringify(data));
+				console.log('We are Successful in auth');
 			});
 
-			channel.bind('search-event', function(data) {
+			publicChannel.bind('search-event', function(data) {
 				alert(JSON.stringify(data));
 				
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 				
-				var triggered = channel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
+				var triggered = privateChannel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
 				alert('Client Event Hopefully?');
 			});
 
-			channel.bind('client-acquiredevent', function(data) {
+			privateChannel.bind('client-acquiredevent', function(data) {
 				alert(JSON.stringify(data));
 			});
 	</script>

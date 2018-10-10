@@ -164,7 +164,7 @@ def search():
         dataUser.SoloRating = squadUser.SoloRating
 
         dataUser.put()
-        pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
+        pusher_client.trigger('public-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
     # When complete
     return render_template('search.html', fHandle=squadUser.EpicUserHandle)
 
@@ -191,7 +191,7 @@ def cancel():
 def pusher_authentication():
 
   auth = pusher.authenticate(
-    channel=request.form['channel_name'],
+    channel=u'private-channel',
     socket_id=request.form['socket_id']
   )
   return json.dumps(auth)
