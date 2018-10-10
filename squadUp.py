@@ -15,6 +15,7 @@ from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 
 import pusher
+import pusher.gae
 # [END imports]
 
 # [DATABASE info]
@@ -142,7 +143,7 @@ pusher_client = pusher.Pusher(
   key='5abda3965495f71e0f72',
   secret='67964c3ddfb15f99fc04',
   cluster='ap1',
-  ssl=True
+  backend=pusher.gae.GAEBackend
 )
 
 @app.route('/search')
@@ -173,13 +174,6 @@ def cancel():
     if fetch is not None:
          fetch.key.delete()
     return render_template('index.html')
-
-# [START sockets backend]
-@socketio.on('message')
-def handleMesssage(msg):
-    logging.critcal('Message: ' + msg)
-    send(msg, broadcast=True)
-
 
 # [END]
 
