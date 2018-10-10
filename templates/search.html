@@ -61,13 +61,11 @@
 
 <body>
 	<script>
-
 		// Enable pusher logging - don't include this in production
 		Pusher.logToConsole = true;
 	
 		var pusher = new Pusher('5abda3965495f71e0f72', {
-			cluster: 'ap1',
-			forceTLS: true
+			cluster: 'ap1'
 		});
 	
 		var channel = pusher.subscribe('my-channel');
