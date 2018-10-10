@@ -41,6 +41,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = LIVE_SQLALCHEMY_DATABASE_URI
 db = SQLAlchemy(app)
 # [END create_app]
 
+def parent_key(page_name):
+    return ndb.Key("Parent", page_name)
+
+def parent_key(user_key):
+    return ndb.Key("OnlineUsers", user_key)
+
 class UserData(db.Model):
     __tablename__ = 'UserData'
     Id = db.Column(db.Integer, primary_key=True)
@@ -60,6 +66,12 @@ class UserData(db.Model):
 
     def __repr__(self):
         return '<Email %r>' % self.email
+
+class UserDataStore(ndb.Model):
+    Email = ndb.StringProperty(indexed=False)
+    EpicUserHandle = ndb.StringProperty(indexed=False)
+    AccountId = ndb.StringProperty(indexed=False)
+    SoloRating = ndb.IntegerProperty(indexed=False)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -85,6 +97,18 @@ def index():
             score=score,
             mm=rating
         )
+
+        parent = parent_key('email')
+        user_key = ndb.Key(UserDataStore, parent=parent)
+        fetch = user_key.get(UserDataStore)
+        if fetch is None:
+            dataUser = UserDataStore(key=user_key)
+            dataUser.Email = currUser.email
+            dataUser.EpicUserHandle = currUser.epicuserhandle
+            dataUser.AccountId = currUser.score
+            dataUser.SoloRating = currUser.mm
+
+        
 
         db.session.add(currUser)
         db.session.commit()
