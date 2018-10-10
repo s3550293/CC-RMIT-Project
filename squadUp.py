@@ -13,7 +13,8 @@ from google.appengine.api import urlfetch
 
 from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
-from flask_socketio import SocketIO
+
+import pusher
 
 # requests_toolbelt.adapters.appengine.monkeypatch()
 # [END imports]
@@ -43,7 +44,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = LIVE_SQLALCHEMY_DATABASE_URI
 # Pro Key
 app.config['SECRET_KEY'] = 'secret' 
 db = SQLAlchemy(app)
-socketio = SocketIO(app)
 # [END create_app]
 
 def parent_key(user_key):
@@ -158,18 +158,18 @@ def profile():
 
     return render_template('profile.html', email=email)
 
+pusher_client = pusher.Pusher(
+  app_id='618751',
+  key='5abda3965495f71e0f72',
+  secret='67964c3ddfb15f99fc04',
+  cluster='ap1',
+  ssl=True
+)
+
 @app.route('/search')
 def search():
-    user = users.get_current_user()
-    # When complete
+    pusher_client.trigger('my-channel', 'my-event', {'message': 'hello world'})
     return render_template('search.html')
-
-# [START sockets backend]
-@socketio.on('message')
-def handleMesssage(msg):
-    logging.critcal('Message: ' + msg)
-    send(msg, broadcast=True)
-
 
 # [END]
 
@@ -178,8 +178,4 @@ def server_error(e):
     # Log the error and stacktrace.
     logging.exception('An error occurred during a request.')
     return 'An internal error occurred.', 500
-
-
-if __name__ == "__main__":
-    socketio.run(app)
 # [END app]

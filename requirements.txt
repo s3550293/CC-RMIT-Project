@@ -7,3 +7,4 @@ requests==2.1.0
 requests-toolbelt==0.8.0
 google-cloud-bigquery
 flask-socketio
+pusher
