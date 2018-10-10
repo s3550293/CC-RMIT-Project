@@ -41,9 +41,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = LIVE_SQLALCHEMY_DATABASE_URI
 db = SQLAlchemy(app)
 # [END create_app]
 
-def parent_key(page_name):
-    return ndb.Key("Parent", page_name)
-
 def parent_key(user_key):
     return ndb.Key("OnlineUsers", user_key)
 
@@ -99,17 +96,17 @@ def index():
         )
 
         parent = parent_key('email')
-        user_key = ndb.Key(UserDataStore, parent=parent)
-        fetch = user_key.get(UserDataStore)
-        if fetch is None:
-            dataUser = UserDataStore(key=user_key)
-            dataUser.Email = currUser.email
-            dataUser.EpicUserHandle = currUser.epicuserhandle
-            dataUser.AccountId = currUser.score
-            dataUser.SoloRating = currUser.mm
+        user_key = ndb.Key(UserDataStore, fHandle, parent=parent)
+        # fetch = user_key.get()
+        # if fetch is None:
+        dataUser = UserDataStore(key=user_key)
+        dataUser.Email = currUser.Email
+        dataUser.EpicUserHandle = currUser.EpicUserHandle
+        dataUser.AccountId = currUser.SoloRating
+        dataUser.SoloRating = currUser.SquadRating
+        dataUser.put()
 
         
-
         db.session.add(currUser)
         db.session.commit()
 
