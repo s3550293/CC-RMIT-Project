@@ -157,7 +157,7 @@ def search():
     fetch = user_key.get()
     if fetch is None:
         dataUser = UserDataStore(key=user_key)
-        dataUser.Email = squadUser.Emil
+        dataUser.Email = squadUser.Email
         dataUser.EpicUserHandle = squadUser.EpicUserHandle
         dataUser.AccountId = squadUser.AccountId
         dataUser.SoloRating = squadUser.SoloRating
