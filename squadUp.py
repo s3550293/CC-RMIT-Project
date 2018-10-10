@@ -142,12 +142,12 @@ def profile():
 @app.route('/search')
 def search():
     user = users.get_current_user()
-    parent = parent_key(user.Email)
+    parent = parent_key(user.email())
     user_key = ndb.Key(UserDataStore, user.Email, parent=parent)
     fetch = user_key.get()
     if fetch is None:
         dataUser = UserDataStore(key=user_key)
-        dataUser.Email = user.Email
+        dataUser.Email = user.email()
         dataUser.EpicUserHandle = user.EpicUserHandle
         dataUser.AccountId = user.AccountId
         dataUser.SoloRating = user.SoloRating
@@ -158,12 +158,11 @@ def search():
 @app.route('/')
 def cancel():
     user = users.get_current_user()
-    parent = parent_key(user.Email)
-    user_key = ndb.Key(UserDataStore, user.Email, parent=parent)
+    parent = parent_key(user.email())
+    user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
     if fetch is not None:
          fetch.key.delete()
-         global_Email = ''
     return render_template('index.html')
 
 # [START sockets backend]
