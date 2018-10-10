@@ -31,62 +31,63 @@
     <h2>Squadup</h2>
     {% if user %}
     <div class="dropdown">
-        <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">
+        <button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img class="rounded-circle" style="height: 64px;" src="bootstrap/img/profiles/MaleOne.png" alt="Circle image">
         </button>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-            <!-- <a class="dropdown-item" data-toggle="modal">Profile</a> -->
-            <button type="button" class="dropdown-item" onclick="location.href = 'index.html';">Search</button>
+            <button type="button" class="dropdown-item" onclick="location.href='/';">Search</button>
             <a class="dropdown-item" href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
         </div>
     </div>
     {% else %}
     <a href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
     {% endif %}
-
 </nav>
 
 <body>
     <div id="User" class="split One">
         <div class="centered">
-                <form action="/" method="post">
-                    <div>
-                        <table>
-                            <tr>
-                                <td>
-            
-                                </td>
-                                <td>
-                                    <img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Fortnite Handle:
-                                </td>
-                                <td>
-                                    {% if fHandle %}
+            <form action="/" method="post">
+                <div>
+                    <table>
+                        <tr>
+                            <td>
+        
+                            </td>
+                            <td>
+                                <img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Fortnite Handle:
+                            </td>
+                            <td>
+                                {% if fHandle %}
                                     {{ fHandle }}
-                                    {% else %}
+                                {% else %}
                                     <input name="fortnitehandle" type="text" class="input-block-level" rows="1" />
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    Email:
-                                </td>
-                                <td>
-                                    {{ email }}
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Email:
+                            </td>
+                            <td>
+                                {{ email }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    {% if fHandle %}
+                        <button class="btn btn-large btn-secondary" value="Save Changes">Save Changes</button>
+                    {% else %}
                         <input type="submit" class="btn btn-large btn-primary" value="Save Changes" />
-                    </div>
-                </form>
+                    {% endif %}
+                </div>
+            </form>
         </div>
     </div>
     
@@ -103,7 +104,6 @@
 
     <!-- Custom scripts for this template -->
     <script src="bootstrap/js/override.js"></script>
-
 </body>
 
 </html>

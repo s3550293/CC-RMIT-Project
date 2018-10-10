@@ -89,9 +89,6 @@ def index():
         db.session.add(currUser)
         db.session.commit()
 
-        squ = UserData.query.filter_by(Email=email)
-        logging.info(squ)
-
         return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
     else:
         user = users.get_current_user()
@@ -102,10 +99,10 @@ def index():
             url_linktext = 'Logout'
             email = user.email()
             
-            squ = UserData.query.filter_by(Email=email).first()
-            if squ:
-                logging.info(squ.Email)
-                fHandle = squ.EpicUserHandle
+            squadUser = UserData.query.filter_by(Email=email).first()
+            if squadUser:
+                logging.info(squadUser.Email)
+                fHandle = squadUser.EpicUserHandle
 
                 return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
         else:
@@ -118,6 +115,12 @@ def index():
 def profile():
     user = users.get_current_user()
     email = user.email()
+
+    squadUser = UserData.query.filter_by(Email=email).first()
+    if squadUser:
+        fHandle = squadUser.EpicUserHandle
+        return render_template('profile.html', email=email, fHandle=fHandle)
+
     return render_template('profile.html', email=email)
 
 @app.route('/search')
