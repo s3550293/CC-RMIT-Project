@@ -189,12 +189,12 @@ def cancel():
 
 @app.route("/pusher/auth", methods=['POST'])
 def pusher_authentication():
-
-  auth = pusher.authenticate(
-    channel=u'private-channel',
-    socket_id=request.form['socket_id']
-  )
-  return json.dumps(auth)
+    logging.critical("WE REQUEST ")
+    auth = pusher.authenticate(
+        channel=request.form['channel_name'],
+        socket_id=request.form['socket_id']
+    )
+    return json.dumps(auth)
 
 
 
