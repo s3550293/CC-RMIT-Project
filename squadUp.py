@@ -96,18 +96,6 @@ def index():
             mm=rating
         )
 
-        parent = parent_key('email')
-        user_key = ndb.Key(UserDataStore, fHandle, parent=parent)
-        # fetch = user_key.get()
-        # if fetch is None:
-        dataUser = UserDataStore(key=user_key)
-        dataUser.Email = currUser.Email
-        dataUser.EpicUserHandle = currUser.EpicUserHandle
-        dataUser.AccountId = currUser.SoloRating
-        dataUser.SoloRating = currUser.SquadRating
-        dataUser.put()
-
-        
         db.session.add(currUser)
         db.session.commit()
 
@@ -123,9 +111,20 @@ def index():
             
             squadUser = UserData.query.filter_by(Email=email).first()
             if squadUser:
-                logging.info(squadUser.Email)
+                logging.critical(squadUser.Email)
                 fHandle = squadUser.EpicUserHandle
+                
+                parent = parent_key(squadUser.Email)
+                user_key = ndb.Key(UserDataStore, fHandle, parent=parent)
+                # fetch = user_key.get()
+                # if fetch is None:
+                dataUser = UserDataStore(key=user_key, Email=squadUser.Email, EpicUserHandle=fHandle)
+                # dataUser.Email = squadUser.Email
+                # dataUser.EpicUserHandle = squadUser.EpicUserHandle
+                # dataUser.AccountId = currUser.AccountId
+                # dataUser.SoloRating = currUser.SquadRating
 
+                dataUser.put()
                 return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
         else:
             url = users.create_login_url('/')
