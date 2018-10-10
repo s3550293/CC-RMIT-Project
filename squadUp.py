@@ -148,17 +148,18 @@ pusher_client = pusher.Pusher(
 @app.route('/search')
 def search():
     pusher_client.trigger('my-channel', 'my-event', {'message': 'hello world'})
-
+    
     user = users.get_current_user()
-    parent = parent_key(user.Email)
-    user_key = ndb.Key(UserDataStore, user.Email, parent=parent)
+    squadUser = UserData.query.filter_by(Email=user.email()).first()
+    parent = parent_key(squadUser.Email)
+    user_key = ndb.Key(UserDataStore, squadUser.Email, parent=parent)
     fetch = user_key.get()
     if fetch is None:
         dataUser = UserDataStore(key=user_key)
-        dataUser.Email = user.Email
-        dataUser.EpicUserHandle = user.EpicUserHandle
-        dataUser.AccountId = user.AccountId
-        dataUser.SoloRating = user.SoloRating
+        dataUser.Email = squadUser.Emil
+        dataUser.EpicUserHandle = squadUser.EpicUserHandle
+        dataUser.AccountId = squadUser.AccountId
+        dataUser.SoloRating = squadUser.SoloRating
         dataUser.put()
     # When complete
     return render_template('search.html')
@@ -166,12 +167,11 @@ def search():
 @app.route('/')
 def cancel():
     user = users.get_current_user()
-    parent = parent_key(user.Email)
-    user_key = ndb.Key(UserDataStore, user.Email, parent=parent)
+    parent = parent_key(user.email())
+    user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
     if fetch is not None:
          fetch.key.delete()
-         global_Email = ''
     return render_template('index.html')
 
 # [START sockets backend]
