@@ -15,8 +15,6 @@ from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 
 import pusher
-
-# requests_toolbelt.adapters.appengine.monkeypatch()
 # [END imports]
 
 # [DATABASE info]
