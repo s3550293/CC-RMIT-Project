@@ -164,6 +164,15 @@ def search():
     # When complete
     return render_template('search.html')
 
+# [START sockets backend]
+@socketio.on('message')
+def handleMesssage(msg):
+    logging.critcal('Message: ' + msg)
+    send(msg, broadcast=True)
+
+
+# [END]
+
 @app.errorhandler(500)
 def server_error(e):
     # Log the error and stacktrace.
