@@ -34,8 +34,6 @@ if os.environ.get('GAE_INSTANCE'):
     SQLALCHEMY_DATABASE_URI = LIVE_SQLALCHEMY_DATABASE_URI
 # [END DATABASE info]
 
-global_Email = ''
-
 # [START create_app]
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -121,26 +119,9 @@ def index():
                 logging.critical(squadUser.Email)
                 fHandle = squadUser.EpicUserHandle
                 
-                parent = parent_key(squadUser.Email)
-                user_key = ndb.Key(UserDataStore, squadUser.Email, parent=parent)
-                fetch = user_key.get()
-                if fetch is None:
-                    dataUser = UserDataStore(key=user_key)
-                    dataUser.Email = squadUser.Email
-                    dataUser.EpicUserHandle = squadUser.EpicUserHandle
-                    dataUser.AccountId = squadUser.AccountId
-                    dataUser.SoloRating = squadUser.SoloRating
-                    dataUser.put()
-                
                 return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
         else:
-            # if global_Email != '':
-            #     parent = parent_key(global_Email)
-            #     user_key = ndb.Key(UserDataStore, global_Email, parent=parent)
-            #     fetch = user_key.get()
-            #     if fetch is not None:
-            #          fetch.key.delete()
-            #          global_Email = ''
+            
             url = users.create_login_url('/')
             url_linktext = 'Login'
 
@@ -161,8 +142,29 @@ def profile():
 @app.route('/search')
 def search():
     user = users.get_current_user()
+    parent = parent_key(user.Email)
+    user_key = ndb.Key(UserDataStore, user.Email, parent=parent)
+    fetch = user_key.get()
+    if fetch is None:
+        dataUser = UserDataStore(key=user_key)
+        dataUser.Email = user.Email
+        dataUser.EpicUserHandle = user.EpicUserHandle
+        dataUser.AccountId = user.AccountId
+        dataUser.SoloRating = user.SoloRating
+        dataUser.put()
     # When complete
     return render_template('search.html')
+
+@app.route('/')
+def cancel():
+    user = users.get_current_user()
+    parent = parent_key(user.Email)
+    user_key = ndb.Key(UserDataStore, user.Email, parent=parent)
+    fetch = user_key.get()
+    if fetch is not None:
+         fetch.key.delete()
+         global_Email = ''
+    return render_template('index.html')
 
 # [START sockets backend]
 @socketio.on('message')

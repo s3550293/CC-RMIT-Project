@@ -32,13 +32,13 @@
 	<div class="dropdown">
 		<button class="btn btn-warning dropdown-toggle btnGame" style="min-width: 12em;" type="button" id="dropdownMenu1"
 		 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		 	Fortnite
+			Fortnite
 		</button>
 	</div>
 	{% if user %}
-	<button type="submit" class="btn btn-secondary" style="min-width: 12em;">Searching</button>
+		<button type="submit" class="btn btn-secondary" style="min-width: 12em;">Searching</button>
 	{% else %}
-	<button type="submit" class="btn btn-secondary" style="min-width: 12em;">Searching</button>
+		<button type="submit" class="btn btn-secondary" style="min-width: 12em;">Searching</button>
 	{% endif %}
 	<button type="button" class="btn btn-danger" style="min-width: 12em;" onclick="location.href = '/';">Cancel</button>
 	<!-- <img class="rounded-circle" style="height: 64px;" src="img/profiles/MaleOne.png" alt="Circle image"> -->
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 	{% else %}
-		<a href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
+	<a href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
 	{% endif %}
 
 </nav>
@@ -74,7 +74,8 @@
 
 	<!-- PROFILE -->
 	<!-- Modal -->
-	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label" aria-hidden="true">
+	<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModal3Label"
+	 aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -88,7 +89,7 @@
 						<table>
 							<tr>
 								<td>
-			
+
 								</td>
 								<td>
 									<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
@@ -100,9 +101,9 @@
 								</td>
 								<td>
 									{% if fHandle %}
-										{{ fHandle }}
+									{{ fHandle }}
 									{% else %}
-										<input name="fortnitehandle" type="text"  class="input-block-level" rows="1"/>
+									<input name="fortnitehandle" type="text" class="input-block-level" rows="1" />
 									{% endif %}
 								</td>
 							</tr>
@@ -117,7 +118,7 @@
 						</table>
 					</div>
 					<div>
-						<input type="submit" class="btn btn-large btn-primary" value="Save Changes"/>
+						<input type="submit" class="btn btn-large btn-primary" value="Save Changes" />
 					</div>
 				</form>
 			</div>
@@ -127,10 +128,10 @@
 	<div id="User" class="split One" style="width: 25%">
 		<div class="centered">
 			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
-				<h2>{{ fHandle }}</h2>
-				<h4>Total Score: 3000</h4>
-				<h4>50% Win rate in solo</h4>
-				<h4>45% Win rate in duo</h4>
+			<h2>{{ fHandle }}</h2>
+			<h4>Total Score: 3000</h4>
+			<h4>50% Win rate in solo</h4>
+			<h4>45% Win rate in duo</h4>
 		</div>
 	</div>
 
@@ -150,7 +151,7 @@
 		</div>
 	</div>
 
-	<div id="MatchThree" class="split Four" style="width: 25%; left: 75%;">  
+	<div id="MatchThree" class="split Four" style="width: 25%; left: 75%;">
 		<div class="centered">
 			<img src="bootstrap/img/profiles/FemaleTwo.png" alt="Avatar man">
 			<h2>Match Three</h2>
