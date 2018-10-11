@@ -86,7 +86,29 @@ class UserDataStore(ndb.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    
+    QUERYSolo = ('SELECT AVG(score) AVG(squadRating) AVG( winRate ) AVG( matchesPlayed ) FROM `squad-up-cc.userData.fortnite_data`')
+    # QUERYSquad = ('SELECT AVG(squadRating) FROM `squad-up-cc.userData.fortnite_data`')
+    # QUERYWin = ('SELECT AVG( winRate ) FROM `squad-up-cc.userData.fortnite_data`')
+    # QUERYMatches = ('SELECT AVG( matchesPlayed ) FROM `squad-up-cc.userData.fortnite_data`')
+    query_job = client.query(QUERYSolo)  # API request
+    rows = query_job.result()  # Waits for query to finish
+    for row in rows:
+        soloAve=row[0]
+        squadAve=row[1]
+        winAve=row[2]
+        matchAve=row[3]
+    # query_job = client.query(QUERYSquad)  # API request
+    # rows = query_job.result()  # Waits for query to finish
+    # for row in rows:
+    #     squadAve=row[0]
+    # query_job = client.query(QUERYWin)  # API request
+    # rows = query_job.result()  # Waits for query to finish
+    # for row in rows:
+    #     winAve=row[0]
+    # query_job = client.query(QUERYMatches)  # API request
+    # rows = query_job.result()  # Waits for query to finish
+    # for row in rows:
+    #     matchAve=row[0]
     if request.method == 'POST':
         user = users.get_current_user()
         email = user.email()
@@ -115,7 +137,7 @@ def index():
         db.session.commit()
         solo = currUser.SoloRating
         squad = currUser.SquadRating
-        return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext, solo=solo, squad=squad)
+        return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext, solo=solo, squad=squad, soloAve=soloAve, squadAve=squadAve, winAve=winAve, matchAve=matchAve)
     else:
         user = users.get_current_user()
         email = ''
@@ -131,24 +153,16 @@ def index():
                 fHandle = squadUser.EpicUserHandle
                 solo = squadUser.SoloRating
                 squad = squadUser.SquadRating
-                return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext, solo=solo, squad=squad)
+                return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext, solo=solo, squad=squad, soloAve=soloAve, squadAve=squadAve, winAve=winAve, matchAve=matchAve)
         else:
             
             url = users.create_login_url('/')
             url_linktext = 'Login'
 
-        return render_template('index.html', user=user, email=email, url=url, url_linktext=url_linktext)
+        return render_template('index.html', user=user, email=email, url=url, url_linktext=url_linktext, soloAve=soloAve, squadAve=squadAve, winAve=winAve, matchAve=matchAve)
 
 @app.route('/profile')
 def profile():
-    QUERY = (
-    'SELECT * FROM `squad-up-cc.userData.offline_users` LIMIT 10')
-
-    query_job = client.query(QUERY)  # API request
-    rows = query_job.result()  # Waits for query to finish
-
-    for row in rows:
-        logging.critical(row.name)
     user = users.get_current_user()
     email = user.email()
 
@@ -170,7 +184,6 @@ pusher_client = pusher.Pusher(
 @app.route('/search')
 def search():
     logging.critical("Adding User to Data Store")
-
     user = users.get_current_user()
     squadUser = UserData.query.filter_by(Email=user.email()).first()
     pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
@@ -192,13 +205,12 @@ def search():
     # When complete
     solo = squadUser.SoloRating
     squad = squadUser.SquadRating
+    pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
     return render_template('search.html', fHandle=squadUser.EpicUserHandle, solo=solo, squad=squad)
 
 @app.route('/cancel')
 def cancel():
     logging.critical("Deleting user")
-    pusher_client.trigger('private-channel', 'cancel-event', {'cancel': 'true'})
-
     user = users.get_current_user()
     parent = parent_key(user.email())
     user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
@@ -212,6 +224,8 @@ def cancel():
     email = user.email()
     squadUser = UserData.query.filter_by(Email=email).first()
     fHandle = squadUser.EpicUserHandle
+
+    pusher_client.trigger('private-channel', 'cancel-event', {'cancel': 'true'})
 
     return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
 
