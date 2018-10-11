@@ -170,8 +170,12 @@ pusher_client = pusher.Pusher(
 @app.route('/search')
 def search():
     logging.critical("Adding User to Data Store")
+
     user = users.get_current_user()
     squadUser = UserData.query.filter_by(Email=user.email()).first()
+    
+    pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
+
     parent = parent_key(user.email())
     user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
@@ -189,12 +193,13 @@ def search():
     # When complete
     solo = squadUser.SoloRating
     squad = squadUser.SquadRating
-    pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
     return render_template('search.html', fHandle=squadUser.EpicUserHandle, solo=solo, squad=squad)
 
 @app.route('/cancel')
 def cancel():
     logging.critical("Deleting user")
+    pusher_client.trigger('private-channel', 'cancel-event', {'cancel': 'true'})
+
     user = users.get_current_user()
     parent = parent_key(user.email())
     user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
@@ -208,8 +213,6 @@ def cancel():
     email = user.email()
     squadUser = UserData.query.filter_by(Email=email).first()
     fHandle = squadUser.EpicUserHandle
-
-    pusher_client.trigger('private-channel', 'cancel-event', {'cancel': 'true'})
 
     return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
 
