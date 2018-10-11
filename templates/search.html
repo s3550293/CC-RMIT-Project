@@ -38,12 +38,10 @@
 				console.log('We are Successful in auth');
 			});
 
-			privateChannel.bind('search-event', function(data) {
-				console.log('Enter Queue');
+			privateChannel.bind('client-acquiredevent', function(data) {
+				console.log('You have found a match');
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 				matchFound();
-			
-				var triggered = privateChannel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
 			});
 
 			privateChannel.bind('cancel-event', function(data) {
@@ -52,9 +50,12 @@
 				resetMatches();
 			});
 
-			privateChannel.bind('client-acquiredevent', function(data) {
+			privateChannel.bind('search-event', function(data) {
+				console.log('Someone has entered the Queue');
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 				matchFound();
+			
+				var triggered = privateChannel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
 			});
 	</script>
 
