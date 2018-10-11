@@ -11,6 +11,9 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from google.appengine.api import urlfetch
 
+from google.cloud import bigquery
+from google.cloud.bigquery import Dataset
+
 from flask import Flask, render_template, request, session
 from flask_sqlalchemy import SQLAlchemy
 
@@ -42,6 +45,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = LIVE_SQLALCHEMY_DATABASE_URI
 app.config['SECRET_KEY'] = 'secret' 
 db = SQLAlchemy(app)
 # [END create_app]
+
+# Big Q
+client = bigquery.Client()
+
+dataset_ref = client.dataset('userData')
+dataset = Dataset(dataset_ref)
+dataset.description = 'Data'
+dataset = client.create_dataset(dataset)  # API request
+# End of Big Q
 
 def parent_key(user_key):
     return ndb.Key("OnlineUsers", user_key)
@@ -130,6 +142,14 @@ def index():
 
 @app.route('/profile')
 def profile():
+    QUERY = (
+    'SELECT * FROM `squad-up-cc.userData.offline_users` LIMIT 10')
+
+    query_job = client.query(QUERY)  # API request
+    rows = query_job.result()  # Waits for query to finish
+
+    for row in rows:
+        logging.critical("row.name")
     user = users.get_current_user()
     email = user.email()
 
