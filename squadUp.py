@@ -118,8 +118,9 @@ def index():
             if squadUser:
                 logging.critical(squadUser.Email)
                 fHandle = squadUser.EpicUserHandle
-                
-                return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
+                solo = squadUser.SoloRating
+                squad = squadUser.SquadRating
+                return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext, solo=solo, squad=squad)
         else:
             
             url = users.create_login_url('/')
