@@ -86,10 +86,10 @@ class UserDataStore(ndb.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    
     if request.method == 'POST':
         user = users.get_current_user()
         email = user.email()
-        global_Email = user.email()
         url = users.create_logout_url('/')
         url_linktext = 'Logout'
         
@@ -124,7 +124,6 @@ def index():
             url = users.create_logout_url('/')
             url_linktext = 'Logout'
             email = user.email()
-            global_Email = user.email()
             
             squadUser = UserData.query.filter_by(Email=email).first()
             if squadUser:
