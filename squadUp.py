@@ -186,10 +186,11 @@ def search():
         dataUser.SoloRating = squadUser.SoloRating
 
         dataUser.put()
-        pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
+
     # When complete
     solo = squadUser.SoloRating
     squad = squadUser.SquadRating
+    pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
     return render_template('search.html', fHandle=squadUser.EpicUserHandle, solo=solo, squad=squad)
 
 @app.route('/cancel')
@@ -209,7 +210,7 @@ def cancel():
     squadUser = UserData.query.filter_by(Email=email).first()
     fHandle = squadUser.EpicUserHandle
 
-    pusher_client.trigger('private-channel', 'cancel-event')
+    pusher_client.trigger('private-channel', 'cancel-event', {'cancel': 'true'})
 
     return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
 

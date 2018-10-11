@@ -31,6 +31,11 @@ function matchFound(){
 
 function cancelMatch() {
     matches--;
+    if(matches == 0){
+        user.style.width = "100%";
+        matchOne.style.width = "0%";
+        matchOne.style.left = "0%";
+    }
     if(matches == 1){
         user.style.width = "50%";
         matchOne.style.width = "50%";
