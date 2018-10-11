@@ -41,7 +41,9 @@
 			privateChannel.bind('client-acquiredevent', function(data) {
 				console.log('You have found a match');
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
+
 				matchFound();
+				alert('You have found a match');
 			});
 
 			privateChannel.bind('cancel-event', function(data) {
@@ -55,6 +57,7 @@
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 				matchFound();
 			
+				alert('You have found a match');
 				var triggered = privateChannel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
 			});
 	</script>
