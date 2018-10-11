@@ -183,6 +183,8 @@ def search():
     logging.critical("Adding User to Data Store")
     user = users.get_current_user()
     squadUser = UserData.query.filter_by(Email=user.email()).first()
+    pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
+
     parent = parent_key(user.email())
     user_key = ndb.Key(UserDataStore, user.email(), parent=parent)
     fetch = user_key.get()
