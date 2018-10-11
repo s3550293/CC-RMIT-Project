@@ -38,6 +38,15 @@
 				console.log('We are Successful in auth');
 			});
 
+			privateChannel.bind('search-event', function(data) {
+				console.log('Someone has entered the Queue');
+				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
+
+				alert('You have found a match');
+				var triggered = privateChannel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
+				matchFound();
+			});
+
 			privateChannel.bind('client-acquiredevent', function(data) {
 				console.log('You have found a match');
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
@@ -50,15 +59,6 @@
 				//Use this for leaving the search queue
 				console.log('Person has left the queue');
 				resetMatches();
-			});
-
-			privateChannel.bind('search-event', function(data) {
-				console.log('Someone has entered the Queue');
-				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
-				matchFound();
-			
-				alert('You have found a match');
-				var triggered = privateChannel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
 			});
 	</script>
 
