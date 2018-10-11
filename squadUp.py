@@ -166,10 +166,11 @@ def search():
         dataUser.SoloRating = squadUser.SoloRating
 
         dataUser.put()
-        pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
+
     # When complete
     solo = squadUser.SoloRating
     squad = squadUser.SquadRating
+    pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
     return render_template('search.html', fHandle=squadUser.EpicUserHandle, solo=solo, squad=squad)
 
 @app.route('/cancel')

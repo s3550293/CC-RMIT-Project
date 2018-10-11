@@ -39,21 +39,20 @@
 			});
 
 			privateChannel.bind('search-event', function(data) {
-				// alert(JSON.stringify(data));
-				
+				console.log('Enter Queue');
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 				matchFound();
+			
 				var triggered = privateChannel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
-				alert('Client Event Hopefully?');
 			});
 
 			privateChannel.bind('cancel-event', function(data) {
 				//Use this for leaving the search queue
-				cancelMatch();
+				console.log('Person has left the queue');
+				resetMatches();
 			});
 
 			privateChannel.bind('client-acquiredevent', function(data) {
-				// alert(JSON.stringify(data));
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 				matchFound();
 			});
