@@ -197,7 +197,6 @@ def pusher_authentication():
     return json.dumps(auth)
 
 
-
 # [END]
 
 @app.errorhandler(500)
