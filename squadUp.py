@@ -86,29 +86,26 @@ class UserDataStore(ndb.Model):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    QUERYSolo = ('SELECT AVG(score) AVG(squadRating) AVG( winRate ) AVG( matchesPlayed ) FROM `squad-up-cc.userData.fortnite_data`')
-    # QUERYSquad = ('SELECT AVG(squadRating) FROM `squad-up-cc.userData.fortnite_data`')
-    # QUERYWin = ('SELECT AVG( winRate ) FROM `squad-up-cc.userData.fortnite_data`')
-    # QUERYMatches = ('SELECT AVG( matchesPlayed ) FROM `squad-up-cc.userData.fortnite_data`')
+    QUERYSolo = ('SELECT AVG(score) FROM `squad-up-cc.userData.fortnite_data`')
+    QUERYSquad = ('SELECT AVG(squadRating) FROM `squad-up-cc.userData.fortnite_data`')
+    QUERYWin = ('SELECT AVG( winRate ) FROM `squad-up-cc.userData.fortnite_data`')
+    QUERYMatches = ('SELECT AVG( matchesPlayed ) FROM `squad-up-cc.userData.fortnite_data`')
     query_job = client.query(QUERYSolo)  # API request
     rows = query_job.result()  # Waits for query to finish
     for row in rows:
         soloAve=row[0]
-        squadAve=row[1]
-        winAve=row[2]
-        matchAve=row[3]
-    # query_job = client.query(QUERYSquad)  # API request
-    # rows = query_job.result()  # Waits for query to finish
-    # for row in rows:
-    #     squadAve=row[0]
-    # query_job = client.query(QUERYWin)  # API request
-    # rows = query_job.result()  # Waits for query to finish
-    # for row in rows:
-    #     winAve=row[0]
-    # query_job = client.query(QUERYMatches)  # API request
-    # rows = query_job.result()  # Waits for query to finish
-    # for row in rows:
-    #     matchAve=row[0]
+    query_job = client.query(QUERYSquad)  # API request
+    rows = query_job.result()  # Waits for query to finish
+    for row in rows:
+        squadAve=row[0]
+    query_job = client.query(QUERYWin)  # API request
+    rows = query_job.result()  # Waits for query to finish
+    for row in rows:
+        winAve=row[0]
+    query_job = client.query(QUERYMatches)  # API request
+    rows = query_job.result()  # Waits for query to finish
+    for row in rows:
+        matchAve=row[0]
     if request.method == 'POST':
         user = users.get_current_user()
         email = user.email()
