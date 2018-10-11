@@ -134,7 +134,15 @@ def index():
         db.session.commit()
         solo = currUser.SoloRating
         squad = currUser.SquadRating
-        return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext, solo=solo, squad=squad, soloAve=soloAve, squadAve=squadAve, winAve=winAve, matchAve=matchAve)
+        return render_template('index.html', 
+            user=user, 
+            email=email,
+            fHandle=fHandle, 
+            url=url, 
+            url_linktext=url_linktext, 
+            solo=solo, 
+            squad=squad,
+            soloAve=soloAve, squadAve=squadAve, winAve=winAve, matchAve=matchAve)
     else:
         user = users.get_current_user()
         email = ''
@@ -224,7 +232,14 @@ def cancel():
 
     pusher_client.trigger('private-channel', 'cancel-event', {'cancel': 'true'})
 
-    return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
+    return render_template('index.html', 
+        user=user,
+        email=email,
+        fHandle=fHandle, 
+        url=url, 
+        url_linktext=url_linktext, 
+        solo=solo, 
+        squad=squad)
 
 @app.route("/pusher/auth", methods=['POST'])
 def pusher_authentication():

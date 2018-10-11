@@ -42,7 +42,7 @@
 				console.log('Someone has entered the Queue');
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 
-				alert('You have found a match');
+				// alert('You have found a match');
 				var triggered = privateChannel.trigger('client-acquiredevent', { 'fHandle': '{{fHandle}}' });
 				matchFound();
 			});
@@ -52,7 +52,7 @@
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 
 				matchFound();
-				alert('You have found a match');
+				// alert('You have found a match');
 			});
 
 			privateChannel.bind('cancel-event', function(data) {
@@ -113,7 +113,7 @@
 		</div>
 	</div>
 
-	<div id="MatchTwo" class="split Three">
+	<!-- <div id="MatchTwo" class="split Three">
 		<div class="centered">
 			<img src="bootstrap/img/profiles/MaleTwo.png" alt="Avatar man">
 			<h2>Match Two</h2>
