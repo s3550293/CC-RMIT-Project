@@ -49,10 +49,10 @@ db = SQLAlchemy(app)
 # Big Q
 client = bigquery.Client()
 
-dataset_ref = client.dataset('userData')
-dataset = Dataset(dataset_ref)
-dataset.description = 'Data'
-dataset = client.create_dataset(dataset)  # API request
+# dataset_ref = client.dataset('userData')
+# dataset = Dataset(dataset_ref)
+# dataset.description = 'Data'
+# dataset = client.create_dataset(dataset)  # API request
 # End of Big Q
 
 def parent_key(user_key):
@@ -149,7 +149,7 @@ def profile():
     rows = query_job.result()  # Waits for query to finish
 
     for row in rows:
-        logging.critical("row.name")
+        logging.critical(row.name)
     user = users.get_current_user()
     email = user.email()
 
