@@ -29,6 +29,22 @@ function matchFound(){
     }
 }
 
+function cancelMatch() {
+    matches--;
+    if(matches == 1){
+        user.style.width = "50%";
+        matchOne.style.width = "50%";
+        matchOne.style.left = "50%";
+    }
+    if(matches == 2){
+        user.style.width = "33.33%";
+        matchOne.style.width = "33.33%";
+        matchTwo.style.width = "33.33%";
+        matchOne.style.left = '33.33%';
+        matchTwo.style.left = '66.66%';
+    }
+}
+
 function resetMatches(){
     matches = 0;
     user.style.width = "100%";

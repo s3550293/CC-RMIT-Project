@@ -189,6 +189,8 @@ def cancel():
     squadUser = UserData.query.filter_by(Email=email).first()
     fHandle = squadUser.EpicUserHandle
 
+    pusher_client.trigger('private-channel', 'cancel-event')
+
     return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
 
 @app.route("/pusher/auth", methods=['POST'])

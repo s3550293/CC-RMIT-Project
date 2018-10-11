@@ -39,7 +39,7 @@
 			});
 
 			privateChannel.bind('search-event', function(data) {
-				alert(JSON.stringify(data));
+				// alert(JSON.stringify(data));
 				
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 				matchFound();
@@ -47,8 +47,13 @@
 				alert('Client Event Hopefully?');
 			});
 
+			privateChannel.bind('cancel-event', function(data) {
+				//Use this for leaving the search queue
+				cancelMatch();
+			});
+
 			privateChannel.bind('client-acquiredevent', function(data) {
-				alert(JSON.stringify(data));
+				// alert(JSON.stringify(data));
 				$("#fHandle").replaceWith('<h2>'+data.fHandle+'</h2>');
 				matchFound();
 			});
