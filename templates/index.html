@@ -38,15 +38,16 @@
 		</div> -->
 	</div>
 	{% if user %}
-		<button type="button" class="btn btn-primary" style="min-width: 12em;" onclick="location.href='/search';">Search</button>
+	<button type="button" class="btn btn-primary" style="min-width: 12em;" onclick="location.href='/search';">Search</button>
 	{% else %}
-		<button type="submit" class="btn btn-secondary" style="min-width: 12em;">Search</button>
+	<button type="submit" class="btn btn-secondary" style="min-width: 12em;">Search</button>
 	{% endif %}
 	<!-- <button type="button" class="btn btn-secondary" style="min-width: 12em;" >Cancel</button> -->
 
 	{% if user %}
 	<div class="dropdown">
-		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		<button class="btn dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
+		 aria-expanded="false">
 			<img class="rounded-circle" style="height: 64px;" src="bootstrap/img/profiles/MaleOne.png" alt="Circle image">
 		</button>
 		<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
@@ -55,7 +56,7 @@
 		</div>
 	</div>
 	{% else %}
-		<a href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
+	<a href="{{ url|safe }}" class="btn">{{ url_linktext }}</a>
 	{% endif %}
 
 </nav>
@@ -65,15 +66,31 @@
 		<div class="centered">
 			<img src="bootstrap/img/profiles/MaleOne.png" alt="Avatar woman">
 			{% if user %}
-				{% if fHandle %}
-				<h2>{{ fHandle }}</h2>
-				{% else %}
-				<h2>Set your Fortnite Handle In Profile</h2>
-				{% endif %}
+			{% if fHandle %}
+			<h2>{{ fHandle }}</h2>
+			<h3>{{ solo }}</h3>
+			<h3>{{ squad }}</h3>
 			{% else %}
-				<h2>No User logged in</h2>
-				<p>-</p>
+			<h2>Set your Fortnite Handle In Profile</h2>
 			{% endif %}
+			{% else %}
+			<h2>No User logged in</h2>
+			<p>-</p>
+			{% endif %}
+			<br>
+			<h2>
+				Fortnite Statistics
+			</h2>
+			<table>
+				<tr>
+					<td>Average Play Time</td>
+					<td> 24 minuets</td>
+				</tr>
+				<tr>
+					<td>Average Win Rate</td>
+					<td>42%</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 
