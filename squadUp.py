@@ -101,8 +101,9 @@ def index():
 
         db.session.add(currUser)
         db.session.commit()
-
-        return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext)
+        solo = currUser.SoloRating
+        squad = currUser.SquadRating
+        return render_template('index.html', user=user, email=email, fHandle=fHandle, url=url, url_linktext=url_linktext, solo=solo, squad=squad)
     else:
         user = users.get_current_user()
         email = ''
@@ -166,7 +167,9 @@ def search():
         dataUser.put()
         pusher_client.trigger('private-channel', 'search-event', {'fHandle': squadUser.EpicUserHandle})
     # When complete
-    return render_template('search.html', fHandle=squadUser.EpicUserHandle)
+    solo = squadUser.SoloRating
+    squad = squadUser.SquadRating
+    return render_template('search.html', fHandle=squadUser.EpicUserHandle, solo=solo, squad=squad)
 
 @app.route('/cancel')
 def cancel():
